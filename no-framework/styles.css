@@ -1,0 +1,89 @@
+body {
+    background-color: white;
+}
+
+.background {
+    background-color: rgb(0, 190, 161);
+}
+
+.white-text {
+    color: white !important;
+}
+
+.hover-color:hover {
+    background-color: rgb(211, 211, 211);
+}
+
+.navbar-link::after {
+    border-color: white !important;
+}
+
+.no-underline {
+    text-decoration: none !important;
+}
+
+.btn-hover-color:hover {
+    background-color: rgba(132, 132, 132, 0.315) !important;
+}
+
+.btn-padding {
+    margin: 10px !important;
+}
+
+.navbar-burger {
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    .navbar-menu {
+        display: none;
+    }
+    .navbar-burger {
+        display: block;
+    }
+    .navbar-burger.is-active + .navbar-menu {
+        display: block;
+    }
+}
+
+.card {
+    align-self: flex-start;
+}
+
+.border-color {
+    border-color: rgb(0, 190, 161);
+}
+
+.border {
+    border: 10px solid grey;
+}
+
+.vertical {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.vertical ul {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.hover-container {
+    padding: 1rem;
+  }
+  .hover-container:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+
+#special-heading {
+    color: white;
+    background-color: rgba(0, 0, 255, 0.552);
+    padding: 1rem;
+    cursor: pointer;
+}
+
+#special-div {
+    border-left: 1px solid rgba(128, 128, 128, 0.207);
+    margin: 1rem;
+    padding-left: 20px;
+}
