@@ -1,0 +1,13 @@
+
+
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.box {
+    background-color: #A6E3E9;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
