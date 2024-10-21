@@ -16,9 +16,27 @@ body {
 }
 
 .navbar-item {
-  color: white;
+  color: white !important;
 }
 
 .navbar-burger span {
   background-color: black !important;
+}
+
+.navbar-link a {
+  color: white !important;
+}
+
+.navbar-link {
+  color: white !important;
+}
+
+#sign-up-button {
+  background-color: #3282b8;
+  margin-left: 2em;
+  margin-right: 1em;
+}
+
+#log-in-button {
+  background-color: #bbe1fa;
 }
