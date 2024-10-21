@@ -39,4 +39,10 @@ body {
 
 #log-in-button {
   background-color: #bbe1fa;
+  margin-left: 1em;
+}
+
+.hero {
+  align-items: center !important;
+  justify-content: center !important;
 }

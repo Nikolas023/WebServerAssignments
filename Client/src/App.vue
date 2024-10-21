@@ -1,7 +1,7 @@
 <template>
-  <NavbarComponent />
+  <div id="app">
+    <RouterView />
+  </div>
 </template>
 
-<script setup lang="ts">
-import NavbarComponent from './components/NavbarComponent.vue'
-</script>
+<script setup lang="ts"></script>

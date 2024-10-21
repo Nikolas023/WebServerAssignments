@@ -25,9 +25,6 @@
     >
       <div class="navbar-start">
         <div class="buttons">
-          <a class="button is-primary" id="sign-up-button"
-            ><strong>Sign up</strong></a
-          >
           <a class="button is-light" id="log-in-button"> Log in </a>
         </div>
       </div>
