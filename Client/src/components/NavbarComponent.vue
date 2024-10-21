@@ -25,28 +25,31 @@
     >
       <div class="navbar-start">
         <div class="buttons">
-          <a class="button is-light" id="log-in-button"> Log in </a>
+          <a
+            class="button is-light"
+            id="log-in-button"
+            @click="navigateToLogin"
+          >
+            Log in
+          </a>
         </div>
       </div>
     </div>
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  setup() {
-    const isMenuActive = ref(false)
+const isMenuActive = ref(false)
+const router = useRouter()
 
-    const toggleMenu = () => {
-      isMenuActive.value = !isMenuActive.value
-    }
+const toggleMenu = () => {
+  isMenuActive.value = !isMenuActive.value
+}
 
-    return {
-      isMenuActive,
-      toggleMenu,
-    }
-  },
-})
+const navigateToLogin = () => {
+  router.push('/login')
+}
 </script>

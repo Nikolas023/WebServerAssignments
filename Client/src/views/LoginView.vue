@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>Login Page</h1>
-    <p>Welcome to the login page.</p>
+    <LoginComponent />
   </div>
 </template>
 
-<script setup lang="ts"></script>
-
-<style scoped></style>
+<script setup lang="ts">
+import LoginComponent from '@/components/LoginComponent.vue'
+</script>

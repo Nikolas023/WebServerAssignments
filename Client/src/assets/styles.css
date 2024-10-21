@@ -46,3 +46,11 @@ body {
   align-items: center !important;
   justify-content: center !important;
 }
+
+.box {
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 3em;
+  max-width: 500px;
+  width: 100%;
+}
