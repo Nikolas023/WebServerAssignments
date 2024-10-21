@@ -44,7 +44,7 @@ const router = useRouter()
 
 const handleSubmit = () => {
   if (email.value === 'idk@example.com' && password.value === '1234') {
-    router.push('/next-page') // Change '/next-page' to a desired path
+    router.push('/userHome')
   } else {
     alert('Invalid credentials')
   }
