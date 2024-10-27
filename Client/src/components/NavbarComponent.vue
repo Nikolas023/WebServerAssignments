@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const isMenuActive = ref(false)
+const router = useRouter()
+
+const toggleMenu = () => {
+  isMenuActive.value = !isMenuActive.value
+}
+
+const navigateToLogin = () => {
+  router.push('/LoginView')
+}
+</script>
+
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
@@ -37,19 +53,3 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const isMenuActive = ref(false)
-const router = useRouter()
-
-const toggleMenu = () => {
-  isMenuActive.value = !isMenuActive.value
-}
-
-const navigateToLogin = () => {
-  router.push('/login')
-}
-</script>

@@ -1,9 +1,26 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const router = useRouter()
+
+const handleSubmit = () => {
+  if (email.value === 'idk@example.com' && password.value === '1234') {
+    router.push('/UserView')
+  } else {
+    alert('Invalid credentials')
+  }
+}
+</script>
+
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <div class="navbar-item" id="mainLogo">FITNESS TRACKER</div>
       <div class="navbar-start">
-        <a class="navbar-item">Home</a>
+        <router-link class="navbar-item" to="/HomeView">Home</router-link>
       </div>
     </div>
   </nav>
@@ -33,22 +50,5 @@
     <button class="button is-primary" type="submit">Sign in</button>
   </form>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const email = ref('')
-const password = ref('')
-const router = useRouter()
-
-const handleSubmit = () => {
-  if (email.value === 'idk@example.com' && password.value === '1234') {
-    router.push('/userHome')
-  } else {
-    alert('Invalid credentials')
-  }
-}
-</script>
 
 <style scoped></style>

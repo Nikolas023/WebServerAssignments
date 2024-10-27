@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const isMenuActive = ref(false)
+const router = useRouter()
+
+const toggleMenu = () => {
+  isMenuActive.value = !isMenuActive.value
+}
+
+const navigateToHome = () => {
+  router.push('/HomeView')
+}
+</script>
+
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
@@ -37,22 +53,6 @@
     <div class="column">This is a column</div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const isMenuActive = ref(false)
-const router = useRouter()
-
-const toggleMenu = () => {
-  isMenuActive.value = !isMenuActive.value
-}
-
-const navigateToHome = () => {
-  router.push('/')
-}
-</script>
 
 <style scoped>
 .navbar-end a {
