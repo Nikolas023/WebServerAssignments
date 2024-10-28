@@ -39,4 +39,8 @@ function deleteUser(userId: number) {
   </table>
 </template>
 
-<style scoped></style>
+<style scoped>
+.table {
+  margin-top: 3em;
+}
+</style>
