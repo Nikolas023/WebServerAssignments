@@ -17,7 +17,7 @@ const navigateToLogin = () => {
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <div class="navbar-item" id="mainLogo">FITNESS TRACKER</div>
+      <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
 
       <a
         role="button"

@@ -18,7 +18,7 @@ const handleSubmit = () => {
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <div class="navbar-item" id="mainLogo">FITNESS TRACKER</div>
+      <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
       <div class="navbar-start">
         <router-link class="navbar-item" to="/HomeView">Home</router-link>
       </div>
