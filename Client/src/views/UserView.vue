@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import UserNavbarComponent from '@/components/UserNavbarComponent.vue'
+import UserNavbarComponent from '@/components/UserContentComponent.vue'
 </script>
