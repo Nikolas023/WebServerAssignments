@@ -1,0 +1,20 @@
+# this is a comment. Three hashes are to start a new request. 
+# Everything defaults to GET.
+# package.json for the server must be in the root.
+
+###
+GET https://google.com
+
+###
+POST https://dummyjson.com/products/add
+MyHeader: MyValue
+
+{
+    "title": "Green Lip Stick",
+    "price": 10.99,
+    "description": "This is a green lip stick",
+    "image": "https://dummyimage.com/300x300.png/00ff00/ffffff"
+}
+
+###
+http://localhost3000
