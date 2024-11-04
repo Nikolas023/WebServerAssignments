@@ -21,15 +21,26 @@
 
 const express = require("express");
 const app = express();
+const userController = require("./Controllers/users");
 
 const PORT = 3000;
 
 // When something comes in with the GET signature and the path is "/", we're going to send back a response of "Hello World!".
 
 // Parameters: The first is info about the request. The second is an object with all the methods we need to create a proper response.
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// An action is a function you can call from a different computer. Or every endpoint on your API is called an action.
+// Get * will always get you "Hello World!".
+app
+  .get("/", (req, res) => {
+    res.send("Hello World!");
+  })
+  .get("/about", (req, res) => {
+    res.send("About Us");
+  })
+  // .get("/contact/:name", (req, res) => {
+  //   res.send(name, req.params.name, phone, "555-555-5555");
+  // });
+  .use("/users", userController);
 
 // The app object has a method called listen. We're going to listen on port 3000.
 
