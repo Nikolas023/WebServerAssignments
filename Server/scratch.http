@@ -38,6 +38,6 @@ Content-Type: application/json
     "firstName": "Nick",
     "lastName": "Doe",
     "age": 30,
-    "email": "idk@gmail.com"
+    "email": "idk@gmail.com",
     "password": "123456"
 }
