@@ -1,22 +1,24 @@
-const data = require("../data/users.json");
+// UPDATE THIS FILE BASED ON HIS. -------------------------------------------------------
+
+const model = require("../data/users.json");
 
 const express = require("express");
 
 // The Router object is a middleware and routing system built into Express.
 const app = express.Router();
 
-// All controllers must have CRUD and it's changes. Each controller can have specific functions.
+// All controllers must have CRUD and it's changes. Each controller can have specific functions. The Model must access the data. We don't want the controller to.
 
 app
   .get("/", (req, res) => {
-    res.send(data.items);
+    res.send(model.getAll());
   })
 
   // Read function
   .get("/:id", (req, res) => {
     const id = req.params.id;
     // The below function is a predicate function. This returns yes or no. This function is called once for every single item in items.
-    const user = data.items.find((user) => user.id === id);
+    const user = model.get(id);
     res.send(user);
   })
 
@@ -28,9 +30,10 @@ app
     const user = req.body;
     // The ? operator is called the ternary operator. It's a shorthand for an if statement. Most operators operate on one or two values, here we're going to operate on three values. It's like an if statement with a return value. If the first expression is not true return the third expression.
     // This is how you write max without having a max function.
-    user.id =
-      data.items.reduce((prev, x) => (x.id > prev ? x.id : prev), 0) + 1;
-    data.items.push(user);
+    // user.id =
+    //   data.items.reduce((prev, x) => (x.id > prev ? x.id : prev), 0) + 1;
+    // data.items.push(user);
+
     res.send(user);
   })
 
