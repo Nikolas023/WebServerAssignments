@@ -30,6 +30,18 @@ const PORT = 3000;
 // Parameters: The first is info about the request. The second is an object with all the methods we need to create a proper response.
 // An action is a function you can call from a different computer. Or every endpoint on your API is called an action.
 // Get * will always get you "Hello World!".
+
+/* Four ways to send data to the server:
+1. Query string
+2. Path/URL parameters
+3. Headers
+4. Body
+*/
+
+// Middleware
+app.use(express.json());
+
+// Controllers
 app
   .get("/", (req, res) => {
     res.send("Hello World!");

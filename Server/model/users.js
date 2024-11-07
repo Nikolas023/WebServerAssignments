@@ -3,7 +3,9 @@
 // The controller should know that it's using express. The controller should know how to send a response back to the client.
 // The model knows about the database. The controller calls the model.
 
-const data = require("../data");
+// copy his users.js in model.
+
+const data = require("../data/users.json");
 
 function getAll() {
   return data.items;
