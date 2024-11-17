@@ -3,40 +3,80 @@
 // The controller should know that it's using express. The controller should know how to send a response back to the client.
 // The model knows about the database. The controller calls the model.
 
-// copy his users.js in model.
-
+/** @type {{ items: User[] }} */
 const data = require("../data/users.json");
 
-function getAll() {
-  return data.items;
+async function getAll() {
+  return {
+    isSuccess: true,
+    data: data.items,
+    total: data.items.length,
+  };
 }
 
-function getById(id) {
-  return data.items.find((item) => item.id === id);
+/**
+ * Get a user by id
+ * @param {number} id
+ * @returns {Promise<DataEnvelope<User>>}
+ */
+async function get(id) {
+  const item = data.items.find((user) => user.id == id);
+  return {
+    isSuccess: !!item,
+    data: item,
+  };
 }
 
-function add(user) {
+/**
+ * Add a new user
+ * @param {User} user
+ * @returns {Promise<DataEnvelope<User>>}
+ */
+async function add(user) {
   user.id = data.items.reduce((prev, x) => (x.id > prev ? x.id : prev), 0) + 1;
   data.items.push(user);
-  return user;
+  return {
+    isSuccess: true,
+    data: user,
+  };
 }
 
-function update(id, user) {
-  const index = data.items.findIndex((item) => item.id === id);
-  data.items[index] = user;
-  return user;
+/**
+ * Update a user
+ * @param {number} id
+ * @param {User} user
+ * @returns {Promise<DataEnvelope<User>>}
+ */
+async function update(id, user) {
+  const userToUpdate = get(id);
+  Object.assign(userToUpdate, user);
+  return {
+    isSuccess: true,
+    data: userToUpdate,
+  };
 }
 
-function remove(id) {
-  const index = data.items.findIndex((item) => item.id === id);
-  data.items.splice(index, 1);
-  return { success: true, message: "User deleted", id: id };
+/**
+ * Remove a user
+ * @param {number} id
+ * @returns {Promise<DataEnvelope<number>>}
+ */
+async function remove(id) {
+  const itemIndex = data.items.findIndex((user) => user.id == id);
+  if (itemIndex === -1)
+    throw {
+      isSuccess: false,
+      message: "Item not found",
+      data: id,
+      status: 404,
+    };
+  data.items.splice(itemIndex, 1);
+  return { isSuccess: true, message: "Item deleted", data: id };
 }
 
-// Named exports
 module.exports = {
   getAll,
-  getById,
+  get,
   add,
   update,
   remove,

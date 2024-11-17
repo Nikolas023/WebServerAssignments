@@ -52,8 +52,9 @@ app
   // .get("/contact/:name", (req, res) => {
   //   res.send(name, req.params.name, phone, "555-555-5555");
   // });
-  .use("/users", userController);
-
+  .use("/api/v1/users", userController);
+  .use("/api/v1/products", productController);
+  
 // The app object has a method called listen. We're going to listen on port 3000.
 
 // Any time you see a number in your program, this is called a magic number. Any time you see a magic number, you should replace it with a constant. Same goes with a string.
