@@ -3,9 +3,26 @@
 // The controller should know that it's using express. The controller should know how to send a response back to the client.
 // The model knows about the database. The controller calls the model.
 
+/*  B"H
+ */
+
 /** @type {{ items: User[] }} */
 const data = require("../data/users.json");
 
+/**
+ * @template T
+ * @typedef {import("../../Client/src/models/dataEnvelope").DataEnvelope} DataEnvelope
+ * @typedef {import("../../Client/src/models/dataEnvelope").DataListEnvelope} DataListEnvelope
+ */
+
+/**
+ * @typedef {import("../../Client/src/models/users").User} User
+ */
+
+/**
+ * Get all users
+ * @returns {Promise<DataListEnvelope<User>>}
+ */
 async function getAll() {
   return {
     isSuccess: true,

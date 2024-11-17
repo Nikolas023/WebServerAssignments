@@ -22,6 +22,7 @@
 const express = require("express");
 const app = express();
 const userController = require("./Controllers/users");
+const productController = require("./Controllers/products");
 
 const PORT = 3000;
 
@@ -39,25 +40,54 @@ const PORT = 3000;
 */
 
 // Middleware
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+});
+
 app.use(express.json());
+app.use(express.static(__dirname + "/dist"));
 
 // Controllers
 app
-  .get("/", (req, res) => {
-    res.send("Hello World!");
+  .get("/", (req, res, next) => {
+    res.send("Hello World");
   })
-  .get("/about", (req, res) => {
+  .get("/about", (req, res, next) => {
     res.send("About Us");
   })
-  // .get("/contact/:name", (req, res) => {
-  //   res.send(name, req.params.name, phone, "555-555-5555");
-  // });
-  .use("/api/v1/users", userController);
-  .use("/api/v1/products", productController);
-  
+  .use("/api/v1/users", userController)
+  .use("/api/v1/products", productController)
+
+  .get("*", (req, res, next) => {
+    res.sendFile(__dirname + "/dist/index.html");
+  });
+
+// Error Handling
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status ?? 500).send(err);
+});
+
+console.log("Step #1");
+app.listen(PORT, (err, data) => {
+  console.log("Step #2");
+  console.log("Server is running at http://localhost:" + PORT);
+});
+console.log("Step #3");
+
+/*  Four types of async methods
+    1. Node Style Callbacks
+    2. Pipelines
+    3. Promises
+    4. Async/Await
+*/
+
 // The app object has a method called listen. We're going to listen on port 3000.
 
 // Any time you see a number in your program, this is called a magic number. Any time you see a magic number, you should replace it with a constant. Same goes with a string.
-app.listen(PORT, () => {
-  console.log("Server is running at http://localhost:" + PORT);
-});
+// app.listen(PORT, () => {
+//   console.log("Server is running at http://localhost:" + PORT);
+// });
