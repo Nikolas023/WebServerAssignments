@@ -1,4 +1,4 @@
-import data from '../data/products.json'
+// import data from '../data/products.json'
 import type { DataListEnvelope } from './dataEnvelope'
 import { rest } from './myFetch'
 
