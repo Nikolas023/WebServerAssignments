@@ -40,10 +40,13 @@ const PORT = 3000;
 */
 
 // Middleware
+// Cores are a security feature that allows you to control who can access your server.
+// * means ready to take any http message from any server.
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
   res.header("Access-Control-Allow-Headers", "*");
+  // If you don't call next the request will stay open and the client will hang.
   next();
 });
 
