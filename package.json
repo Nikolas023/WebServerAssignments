@@ -9,6 +9,7 @@
   "dependencies": {
     "dayjs": "^1.11.13",
     "express": "^4.21.0",
+    "i": "^0.3.7",
     "project": "file:"
   },
   "devDependencies": {
