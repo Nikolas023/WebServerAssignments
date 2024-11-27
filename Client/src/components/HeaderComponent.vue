@@ -8,9 +8,19 @@
       </p>
     </div>
     <div>
-      <a class="button is-primary" id="sign-up-button"
+      <a class="button is-primary" id="sign-up-button" @click="navigateToSignUp"
         ><strong>Sign up</strong></a
       >
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const navigateToSignUp = () => {
+  router.push('/SignUpView')
+}
+</script>

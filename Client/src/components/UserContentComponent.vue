@@ -162,4 +162,8 @@ const deleteWorkout = (index: number) => {
   top: 10px;
   right: 10px;
 }
+
+.title {
+  margin-top: 1rem;
+}
 </style>
