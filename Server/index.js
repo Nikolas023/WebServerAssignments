@@ -22,7 +22,6 @@
 const express = require("express");
 const app = express();
 const userController = require("./Controllers/users");
-const productController = require("./Controllers/products");
 
 const PORT = 3000;
 
@@ -62,7 +61,6 @@ app
     res.send("About Us");
   })
   .use("/api/v1/users", userController)
-  .use("/api/v1/products", productController)
 
   .get("*", (req, res, next) => {
     res.sendFile(__dirname + "/dist/index.html");
