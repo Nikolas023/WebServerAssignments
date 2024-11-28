@@ -44,24 +44,18 @@ const navigateToHome = () => {
           </span>
           My Activity
         </router-link>
-        <a class="navbar-item">
-          <span class="icon">
-            <i class="fas fa-chart-bar"></i>
-          </span>
-          Statistics
-        </a>
-        <a class="navbar-item">
+        <router-link class="navbar-item" to="/FriendsView">
           <span class="icon">
             <i class="fas fa-users"></i>
           </span>
           Friends Activity
-        </a>
-        <a class="navbar-item">
+        </router-link>
+        <router-link class="navbar-item" to="/SearchView">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
           People Search
-        </a>
+        </router-link>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <span class="icon">
@@ -74,7 +68,7 @@ const navigateToHome = () => {
               <span class="icon">
                 <i class="fas fa-user"></i>
               </span>
-              User
+              Users
             </router-link>
           </div>
         </div>
