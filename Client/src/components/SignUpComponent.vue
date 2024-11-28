@@ -2,13 +2,24 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+const firstName = ref('')
+const lastName = ref('')
 const email = ref('')
 const password = ref('')
+const password2 = ref('')
+const username = ref('')
 const router = useRouter()
 
 const handleSubmit = () => {
-  if (email.value === 'idk@example.com' && password.value === '1234') {
-    router.push('/SignUpView')
+  if (
+    email.value === 'idk@example.com' &&
+    password.value === '1234' &&
+    password2.value === '1234' &&
+    username.value === 'johndoe' &&
+    firstName.value === 'John' &&
+    lastName.value === 'Doe'
+  ) {
+    router.push('/UserView')
   } else {
     alert('Invalid credentials')
   }
@@ -20,11 +31,35 @@ const handleSubmit = () => {
     <div class="navbar-brand">
       <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
       <div class="navbar-start">
-        <router-link class="navbar-item" to="/HomeView">Home</router-link>
+        <router-link class="navbar-item" id="homeBtn" to="/HomeView"
+          >Home</router-link
+        >
       </div>
     </div>
   </nav>
   <form class="box" @submit.prevent="handleSubmit">
+    <div class="field">
+      <label class="label">First Name</label>
+      <div class="control">
+        <input
+          class="input"
+          type="name"
+          v-model="firstName"
+          placeholder="Type: John"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Last Name</label>
+      <div class="control">
+        <input
+          class="input"
+          type="name"
+          v-model="lastName"
+          placeholder="Type: Doe"
+        />
+      </div>
+    </div>
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
@@ -37,7 +72,7 @@ const handleSubmit = () => {
       </div>
     </div>
     <div class="field">
-      <label class="label">Password</label>
+      <label class="label">Create a Password</label>
       <div class="control">
         <input
           class="input"
@@ -47,8 +82,34 @@ const handleSubmit = () => {
         />
       </div>
     </div>
+    <div class="field">
+      <label class="label">Enter Password Again</label>
+      <div class="control">
+        <input
+          class="input"
+          type="password"
+          v-model="password2"
+          placeholder="Type: 1234"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Username</label>
+      <div class="control">
+        <input
+          class="input"
+          type="username"
+          v-model="username"
+          placeholder="Type: johndoe"
+        />
+      </div>
+    </div>
     <button class="button is-primary" type="submit">Sign up</button>
   </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+#homeBtn {
+  height: 100%;
+}
+</style>

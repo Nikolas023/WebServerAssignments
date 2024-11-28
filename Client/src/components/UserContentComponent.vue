@@ -31,24 +31,22 @@ const deleteWorkout = (index: number) => {
 </script>
 
 <template>
-  <div class="columns is-centered">
-    <div class="column is-half" id="userData">
-      <div class="content">
-        <h1 class="title is-1">My Activity</h1>
-        <div class="button" id="workoutBtn" @click="showAddWorkoutModal">
-          Add Workout
-        </div>
-        <div v-for="(workout, index) in workouts" :key="index" class="card">
-          <div class="card-content">
-            <button
-              class="delete is-pulled-right"
-              @click="deleteWorkout(index)"
-            ></button>
-            <p><strong>Date:</strong> {{ workout.date }}</p>
-            <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
-            <p><strong>Location:</strong> {{ workout.location }}</p>
-            <p><strong>Type:</strong> {{ workout.type }}</p>
-          </div>
+  <div class="container">
+    <div class="column">
+      <h1 class="title is-1">My Activity</h1>
+      <div class="button" id="workoutBtn" @click="showAddWorkoutModal">
+        Add Workout
+      </div>
+      <div v-for="(workout, index) in workouts" :key="index" class="card">
+        <div class="card-content">
+          <button
+            class="delete is-pulled-right"
+            @click="deleteWorkout(index)"
+          ></button>
+          <p><strong>Date:</strong> {{ workout.date }}</p>
+          <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
+          <p><strong>Location:</strong> {{ workout.location }}</p>
+          <p><strong>Type:</strong> {{ workout.type }}</p>
         </div>
       </div>
     </div>
@@ -76,6 +74,6 @@ const deleteWorkout = (index: number) => {
 }
 
 .title {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 </style>
