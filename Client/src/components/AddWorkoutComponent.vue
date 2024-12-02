@@ -2,7 +2,6 @@
   <div class="modal" :class="{ 'is-active': props.isActive }">
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-content">
-      <!-- Your form content here -->
       <div class="box">
         <button class="delete is-pulled-right" @click="closeModal"></button>
         <h1 class="title">Add Workout</h1>

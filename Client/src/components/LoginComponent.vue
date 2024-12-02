@@ -20,7 +20,9 @@ const handleSubmit = () => {
     <div class="navbar-brand">
       <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
       <div class="navbar-start">
-        <router-link class="navbar-item" to="/HomeView">Home</router-link>
+        <router-link class="navbar-item" id="homeBtn" to="/HomeView"
+          >Home</router-link
+        >
       </div>
     </div>
   </nav>
@@ -51,4 +53,8 @@ const handleSubmit = () => {
   </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+#homeBtn {
+  height: 100%;
+}
+</style>
