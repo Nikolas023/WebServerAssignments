@@ -24,6 +24,7 @@ const signUp = async () => {
       password: password.value,
       username: username.value,
     })
+    console.log('Response:', res)
     if (res.status === 201) {
       router.push('/UserView')
     } else {

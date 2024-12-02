@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const usersRoutes = require("./routes/users");
+const usersController = require("./routes/users");
 const { connectDB, sequelize } = require("./db");
 require("dotenv").config(); // Load environment variables from .env file
 
@@ -9,7 +9,6 @@ require("dotenv").config(); // Load environment variables from .env file
 connectDB();
 
 app.use(bodyParser.json());
-app.use("/api/v1/users", usersRoutes);
 
 // Middleware for CORS
 app.use((req, res, next) => {
@@ -23,13 +22,15 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname + "/dist"));
 
 // Define routes
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+app
+  .get("/", (req, res) => {
+    res.send("Hello World");
+  })
+  .get("/about", (req, res) => {
+    res.send("About Us");
+  })
 
-app.get("/about", (req, res) => {
-  res.send("About Us");
-});
+  .use("api/v1/users", usersController);
 
 // Catch-all route to serve the frontend application
 app.get("*", (req, res) => {

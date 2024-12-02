@@ -13,7 +13,7 @@ const writeData = (data) => {
 };
 
 // GET: Handles the retrieval of all users.
-// endpoint: /api/users
+// endpoint: /api/v1/users
 exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.findAll();
@@ -24,7 +24,7 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 // GET: Handles the retrieval of a single user.
-// endpoint: /api/users/:id
+// endpoint: /api/v1/users/:id
 exports.getUserById = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -35,7 +35,7 @@ exports.getUserById = async (req, res, next) => {
 };
 
 // POST: Handles the creation of a new user.
-// endpoint: /api/users
+// endpoint: /api/v1/users
 exports.addUser = async (req, res, next) => {
   try {
     const user = await User.create(req.body);
@@ -46,7 +46,7 @@ exports.addUser = async (req, res, next) => {
 };
 
 // PUT: Handles the update of an existing user.
-// endpoint: /api/users/:id
+// endpoint: /api/v1/users/:id
 exports.updateUser = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -61,7 +61,7 @@ exports.updateUser = async (req, res, next) => {
 };
 
 // DELETE: Handles the deletion of an existing user.
-// endpoint: /api/users/:id
+// endpoint: /api/v1/users/:id
 exports.deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
