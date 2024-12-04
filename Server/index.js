@@ -1,14 +1,7 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
-const usersController = require("./routes/users");
-const { connectDB, sequelize } = require("./db");
-require("dotenv").config(); // Load environment variables from .env file
-
-// Connect to the database
-connectDB();
-
-app.use(bodyParser.json());
+const userRoutes = require("./routes/users");
+const PORT = 3000;
 
 // Middleware for CORS
 app.use((req, res, next) => {
@@ -18,37 +11,31 @@ app.use((req, res, next) => {
   next();
 });
 
+// Middleware for parsing JSON data
+app.use(express.json());
+
 // Serve static files from the "dist" directory
 app.use(express.static(__dirname + "/dist"));
 
-// Define routes
+// Controllers
 app
-  .get("/", (req, res) => {
-    res.send("Hello World");
+  .get("/", (req, res, next) => {
+    res.send("Hello World!");
   })
-  .get("/about", (req, res) => {
-    res.send("About Us");
-  })
-
-  .use("api/v1/users", usersController);
-
-// Catch-all route to serve the frontend application
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/dist/index.html");
-});
+  .use("/api/v1/users", userRoutes)
+  .get("*", (req, res, next) => {
+    res.sendFile(__dirname + "/dist/index.html");
+  });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.status || 500).send(err.message || "Internal Server Error");
+  res.status(err.status ?? 500).send;
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-  });
+app.listen(PORT, (err, data) => {
+  console.log("Server is running at http://localhost:" + PORT);
 });
 
 /*  Four types of async methods

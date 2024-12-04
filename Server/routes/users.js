@@ -1,13 +1,13 @@
-// Initialize express router
+// Initialize the router
 const express = require("express");
 const router = express.Router();
-const usersController = require("../Controllers/usersController");
+const userController = require("../controllers/users");
 
 router
-  .get("/", usersController.getAllUsers)
-  .get("/:id", usersController.getUserById)
-  .post("/", usersController.addUser)
-  .patch("/:id", usersController.updateUser)
-  .delete("/:id", usersController.deleteUser);
+  .get("/", userController.getAllUsers)
+  .get("/:id", userController.getUserById)
+  .post("/", userController.addUser)
+  .patch("/:id", userController.updateUser)
+  .delete("/:id", userController.deleteUser);
 
 module.exports = router;
