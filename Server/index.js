@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const userRoutes = require("./routes/users");
 const PORT = 3000;
+require("dotenv").config();
 
 // Middleware for CORS
 app.use((req, res, next) => {

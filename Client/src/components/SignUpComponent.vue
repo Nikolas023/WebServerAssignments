@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
 
-const firstName = ref<string>('')
-const lastName = ref<string>('')
-const email = ref<string>('')
-const password = ref<string>('')
-const password2 = ref<string>('')
-const username = ref<string>('')
+const supabaseUrl = 'https://fuwrvjbxrmdciutawspf.supabase.co'
+const supabaseKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1d3J2amJ4cm1kY2l1dGF3c3BmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NjE5MDQsImV4cCI6MjA0ODEzNzkwNH0.9WdAy4YMPTq0d4-SYlGLEPhf6xjU9SerBS5ZNR5Gy3s'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+const firstName = ref('')
+const lastName = ref('')
+const email = ref('')
+const password = ref('')
+const password2 = ref('')
+const username = ref('')
 const router = useRouter()
 
 const signUp = async () => {
@@ -16,23 +21,23 @@ const signUp = async () => {
     alert('Passwords do not match')
     return
   }
-  try {
-    const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/users`, {
+
+  const { data, error } = await supabase.from('users').insert([
+    {
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
-      password: password.value,
+      password: password.value, // Ensure to hash passwords in a real-world scenario
       username: username.value,
-    })
-    console.log('Response:', res)
-    if (res.status === 201) {
-      router.push('/UserView')
-    } else {
-      alert('Error signing up: ' + res.statusText)
-    }
-  } catch (error) {
-    console.error('Error creating user:', error)
-    alert('Error signing up: ' + error)
+    },
+  ])
+
+  if (error) {
+    console.error('Error inserting data:', error)
+    alert('Error signing up: ' + error.message)
+  } else {
+    console.log('Data inserted:', data)
+    router.push('/UserView')
   }
 }
 </script>
@@ -52,13 +57,13 @@ const signUp = async () => {
     <div class="field">
       <label class="label">First Name</label>
       <div class="control">
-        <input class="input" type="name" v-model="firstName" required />
+        <input class="input" type="text" v-model="firstName" required />
       </div>
     </div>
     <div class="field">
       <label class="label">Last Name</label>
       <div class="control">
-        <input class="input" type="name" v-model="lastName" required />
+        <input class="input" type="text" v-model="lastName" required />
       </div>
     </div>
     <div class="field">
@@ -82,7 +87,7 @@ const signUp = async () => {
     <div class="field">
       <label class="label">Username</label>
       <div class="control">
-        <input class="input" type="username" v-model="username" required />
+        <input class="input" type="text" v-model="username" required />
       </div>
     </div>
     <button class="button is-primary" type="submit">Sign up</button>
