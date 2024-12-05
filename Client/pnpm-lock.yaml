@@ -33,6 +33,9 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4
+      '@types/google.accounts':
+        specifier: ^0.0.1
+        version: 0.0.1
       '@types/node':
         specifier: ^20.16.11
         version: 20.16.13
@@ -569,6 +572,9 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/google.accounts@0.0.1':
+    resolution: {integrity: sha512-US+e68xwCoiieDI1HYVCbk8PHCB6GIHyWUSBxpFAbTYtmvtnXLzbBusZrz3HCYAOBijkZebSNGNkc746Qz3R7Q==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -2153,6 +2159,8 @@ snapshots:
   '@tsconfig/node20@20.1.4': {}
 
   '@types/estree@1.0.6': {}
+
+  '@types/google.accounts@0.0.1': {}
 
   '@types/json-schema@7.0.15': {}
 
