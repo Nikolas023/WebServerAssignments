@@ -11,7 +11,6 @@ export default defineConfig({
   plugins: [
     VueRouter({
       /* options */
-      routesFolder: 'src/views',
     }),
     vue(),
     vueJsx(),
@@ -23,4 +22,7 @@ export default defineConfig({
     },
   },
   base: './',
+  build: {
+    outDir: '../Server/dist',
+  },
 })

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { supabase } from '@services/supabaseClient.js'
 import { useRouter } from 'vue-router'
 
 const firstName = ref('')
@@ -10,31 +9,6 @@ const password = ref('')
 const password2 = ref('')
 const username = ref('')
 const router = useRouter()
-
-const signUp = async () => {
-  if (password.value !== password2.value) {
-    alert('Passwords do not match')
-    return
-  }
-
-  const { data, error } = await supabase.from('users').insert([
-    {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: email.value,
-      password: password.value, // Ensure to hash passwords in a real-world scenario
-      username: username.value,
-    },
-  ])
-
-  if (error) {
-    console.error('Error inserting data:', error)
-    alert('Error signing up: ' + error.message)
-  } else {
-    console.log('Data inserted:', data)
-    router.push('/UserView')
-  }
-}
 </script>
 
 <template>

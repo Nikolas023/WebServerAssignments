@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
-const userRoutes = require("./routes/users");
+const userController = require("./controllers/users");
 const PORT = 3000;
-require("dotenv").config();
 
 // Middleware for CORS
 app.use((req, res, next) => {
@@ -23,10 +22,10 @@ app
   .get("/", (req, res, next) => {
     res.send("Hello World!");
   })
-  .use("/api/v1/users", userRoutes)
   .get("*", (req, res, next) => {
     res.sendFile(__dirname + "/dist/index.html");
-  });
+  })
+  .use("/api/v1/users", userController);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
