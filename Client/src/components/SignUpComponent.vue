@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { createClient } from '@supabase/supabase-js'
+
+const suap
 
 const firstName = ref('')
 const lastName = ref('')

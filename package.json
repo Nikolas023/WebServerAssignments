@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js --watch server"
+    "start": "node Server/index.js",
+    "dev": "nodemon Server/index.js --watch server",
+    "build": "tsc -p /Server/tsconfig.json"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.2",
@@ -19,7 +20,9 @@
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
+    "@types/node": "^22.10.1",
     "nodemon": "^3.1.7",
-    "supabase": "^2.0.0"
+    "supabase": "^2.0.0",
+    "typescript": "^5.7.2"
   }
 }
