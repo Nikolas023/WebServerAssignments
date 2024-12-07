@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { createClient } from '@supabase/supabase-js'
-
-const suap
 
 const firstName = ref('')
 const lastName = ref('')
@@ -12,6 +9,40 @@ const password = ref('')
 const password2 = ref('')
 const username = ref('')
 const router = useRouter()
+
+const signUp = async () => {
+  if (password.value !== password2.value) {
+    alert('Passwords do not match')
+    return
+  }
+
+  try {
+    const response = await fetch('/api/v1/users/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        username: username.value,
+      }),
+    })
+
+    const result = await response.json()
+
+    if (response.ok) {
+      alert('Sign up successful!')
+      router.push({ name: 'UserView', params: { userId: result.user.id } })
+    } else {
+      alert('Error: ' + result.message)
+    }
+  } catch (error) {
+    alert('Error: ' + error)
+  }
+}
 </script>
 
 <template>
@@ -71,4 +102,3 @@ const router = useRouter()
   height: 100%;
 }
 </style>
--->
