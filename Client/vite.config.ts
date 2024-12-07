@@ -6,7 +6,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import VueRouter from 'unplugin-vue-router/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     VueRouter({
@@ -24,5 +23,14 @@ export default defineConfig({
   base: './',
   build: {
     outDir: '../Server/dist',
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // Your server's URL and port
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
   },
 })

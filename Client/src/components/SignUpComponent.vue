@@ -35,7 +35,7 @@ const signUp = async () => {
 
     if (response.ok) {
       alert('Sign up successful!')
-      router.push({ name: 'UserView', params: { userId: result.user.id } })
+      router.push({ name: 'User' }) // Ensure this matches the route name in your router
     } else {
       alert('Error: ' + result.message)
     }

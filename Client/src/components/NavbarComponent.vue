@@ -10,7 +10,7 @@ const toggleMenu = () => {
 }
 
 const navigateToLogin = () => {
-  router.push('/LoginView')
+  router.push({ name: 'Login' })
 }
 </script>
 

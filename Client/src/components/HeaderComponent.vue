@@ -21,6 +21,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const navigateToSignUp = () => {
-  router.push('/SignUpView')
+  router.push({ name: 'SignUp' })
 }
 </script>

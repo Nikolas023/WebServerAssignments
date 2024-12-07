@@ -23,7 +23,7 @@ app.get("/:id", (req, res, next) => {
 
 // POST: Handles the creation of a new user.
 // endpoint: /api/v1/users
-app.post("/", async (req, res, next) => {
+app.post("/:signup", async (req, res, next) => {
   const { email, password, firstName, lastName, username } = req.body;
 
   try {
@@ -44,9 +44,10 @@ app.post("/", async (req, res, next) => {
       .getConnection()
       .from("users")
       .insert({
-        id: user.id,
-        first_name: firstName,
-        last_name: lastName,
+        userID: user.id,
+        firstName: firstName,
+        lastName: lastName,
+        password,
         username,
         email,
       });
