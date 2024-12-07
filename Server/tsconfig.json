@@ -6,9 +6,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "checkJs": false,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["./**/*.js"],
+  "exclude": ["dist", "node_modules"]
 }

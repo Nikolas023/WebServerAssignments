@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node Server/index.js",
     "dev": "nodemon Server/index.js --watch server",
-    "build": "tsc -p /Server/tsconfig.json"
+    "build": "pnpm run build-server && npm run build-client",
+    "build-server": "tsc -p Server/tsconfig.json",
+    "build-client": "tsc -p Client/tsconfig.json"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.2",
