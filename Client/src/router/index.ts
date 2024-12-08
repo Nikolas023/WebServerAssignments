@@ -11,23 +11,23 @@ const routes = [
   {
     path: '/user/:userId',
     name: 'User',
-    component: () => import('../views/UserView.vue'),
+    component: () => import('../views/User/UserView.vue'),
     props: true,
   },
   {
     path: '/signup',
     name: 'SignUp',
-    component: () => import('../views/SignUpView.vue'),
+    component: () => import('../views/Home/SignUpView.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/LoginView.vue'),
+    component: () => import('../views/Home/LoginView.vue'),
   },
   {
     path: '/HomeView',
     name: 'HomeView',
-    component: () => import('../views/HomeView.vue'),
+    component: () => import('../views/Home/HomeView.vue'),
   },
 ]
 

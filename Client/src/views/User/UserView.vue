@@ -1,15 +1,11 @@
 <template>
-  <UserContentComponent :user="user" />
   <UserNavbarComponent :user="user" />
-  <div>
-    <p>User ID: {{ user?.id }}</p>
-    <!-- Use optional chaining here -->
-  </div>
+  <UserContentComponent :user="user" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { User } from '../models/users'
+import { User } from '../../models/users'
 import UserContentComponent from '@/components/UserContentComponent.vue'
 import UserNavbarComponent from '@/components/UserNavbarComponent.vue'
 
