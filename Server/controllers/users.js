@@ -1,33 +1,27 @@
-const model = require("../model/user");
-const supabase = require("../model/supabase"); // Import Supabase client
+const model = require("../models/user");
+const supabase = require("../models/supabase");
 const express = require("express");
-const app = express.Router();
+const router = express.Router();
 
-// GET: Handles the retrieval of all users.
-// endpoint: /api/v1/users
-app.get("/", (req, res, next) => {
-  model
-    .getAllUsers()
-    .then((x) => res.send(x))
-    .catch(next);
-});
-
-// GET: Handles the retrieval of a single user.
-// endpoint: /api/v1/users/:id
-app.get("/:id", (req, res, next) => {
-  model
-    .getUserById(+req.params.id)
-    .then((x) => res.send(x))
-    .catch(next);
-});
-
-// POST: Handles the creation of a new user.
-// endpoint: /api/v1/users
-app.post("/:signup", async (req, res, next) => {
+router.post("/signup", async (req, res) => {
   const { email, password, firstName, lastName, username } = req.body;
 
   try {
-    // Sign up the user with Supabase
+    const { data: testData, error: testError } = await supabase
+      .getConnection()
+      .from("users")
+      .select("*")
+      .limit(1);
+
+    if (testError) {
+      console.error("Supabase connection error:", testError.message);
+      return res
+        .status(500)
+        .json({ message: "Error connecting to the database" });
+    }
+
+    console.log("Supabase connection successful:", testData);
+
     const { data, error } = await supabase.getConnection().auth.signUp({
       email,
       password,
@@ -39,17 +33,15 @@ app.post("/:signup", async (req, res, next) => {
 
     const { user } = data;
 
-    // Insert user profile into the users table
     const { error: insertError } = await supabase
       .getConnection()
       .from("users")
       .insert({
-        userID: user.id,
         firstName: firstName,
         lastName: lastName,
-        password,
         username,
         email,
+        password,
       });
 
     if (insertError) {
@@ -62,21 +54,4 @@ app.post("/:signup", async (req, res, next) => {
   }
 });
 
-// PATCH: Handles the update of an existing user.
-app.patch("/:id", (req, res, next) => {
-  model
-    .updateUser(+req.params.id, req.body)
-    .then((x) => res.send(x))
-    .catch(next);
-});
-
-// DELETE: Handles the deletion of an existing user.
-// endpoint: /api/v1/users/:id
-app.delete("/:id", (req, res, next) => {
-  model
-    .deleteUser(+req.params.id)
-    .then((x) => res.send(x))
-    .catch(next);
-});
-
-module.exports = app;
+module.exports = router;

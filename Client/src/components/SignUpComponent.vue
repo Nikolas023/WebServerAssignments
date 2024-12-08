@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+// Find a way to make sure you can't sign up twice.
+
 const firstName = ref('')
 const lastName = ref('')
 const email = ref('')
@@ -17,7 +19,7 @@ const signUp = async () => {
   }
 
   try {
-    const response = await fetch('/api/v1/users/signup', {
+    const response = await fetch('http://localhost:3000/api/v1/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ const signUp = async () => {
 
     if (response.ok) {
       alert('Sign up successful!')
-      router.push({ name: 'User' }) // Ensure this matches the route name in your router
+      router.push({ name: 'User' })
     } else {
       alert('Error: ' + result.message)
     }

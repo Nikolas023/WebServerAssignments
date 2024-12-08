@@ -1,7 +1,12 @@
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../.env"),
+});
+
 const express = require("express");
+const path = require("path");
 const app = express();
 const userController = require("./controllers/users");
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware for CORS
 app.use((req, res, next) => {
@@ -14,18 +19,16 @@ app.use((req, res, next) => {
 // Middleware for parsing JSON data
 app.use(express.json());
 
-// Serve static files from the "dist" directory
-app.use(express.static(__dirname + "/dist"));
+// API Routes
+app.use("/api/v1/users", userController);
 
-// Controllers
-app
-  .get("/", (req, res, next) => {
-    res.send("Hello World!");
-  })
-  .get("*", (req, res, next) => {
-    res.sendFile(__dirname + "/dist/index.html");
-  })
-  .use("/api/v1/users", userController);
+// Serve static files from the "dist" directory
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Handle SPA
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -34,39 +37,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(PORT, (err, data) => {
+app.listen(PORT, () => {
   console.log("Server is running at http://localhost:" + PORT);
 });
-
-/*  Four types of async methods
-    1. Node Style Callbacks
-    2. Pipelines
-    3. Promises
-    4. Async/Await
-*/
-
-// The app object has a method called listen. We're going to listen on port 3000.
-
-// Any time you see a number in your program, this is called a magic number. Any time you see a magic number, you should replace it with a constant. Same goes with a string.
-// app.listen(PORT, () => {
-//   console.log("Server is running at http://localhost:" + PORT);
-// });
-
-// When something comes in with the GET signature and the path is "/", we're going to send back a response of "Hello World!".
-
-// Parameters: The first is info about the request. The second is an object with all the methods we need to create a proper response.
-// An action is a function you can call from a different computer. Or every endpoint on your API is called an action.
-// Get * will always get you "Hello World!".
-
-/* Four ways to send data to the server:
-1. Query string
-2. Path/URL parameters
-3. Headers
-4. Body
-*/
-
-// run with `node server.mjs`
-
-// Almost all Node code uses the CommonJS module system.
-
-// The way to tell node to use the ES module system is to use the .mjs file extension.
