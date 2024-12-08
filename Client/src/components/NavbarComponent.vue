@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 const isMenuActive = ref(false)
-const router = useRouter()
 
 const toggleMenu = () => {
   isMenuActive.value = !isMenuActive.value
-}
-
-const navigateToLogin = () => {
-  router.push({ name: 'Login' })
 }
 </script>
 
@@ -38,18 +32,6 @@ const navigateToLogin = () => {
       id="navbarBasicExample"
       class="navbar-menu"
       :class="{ 'is-active': isMenuActive }"
-    >
-      <div class="navbar-start">
-        <div class="buttons">
-          <a
-            class="button is-light"
-            id="log-in-button"
-            @click="navigateToLogin"
-          >
-            Log in
-          </a>
-        </div>
-      </div>
-    </div>
+    ></div>
   </nav>
 </template>

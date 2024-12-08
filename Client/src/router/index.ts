@@ -5,8 +5,8 @@ const routes = [
   ...autoRoutes,
   {
     path: '/',
-    name: 'HomeRedirect',
-    redirect: '/HomeView',
+    name: 'Home',
+    component: () => import('../views/Home/HomeView.vue'),
   },
   {
     path: '/user/:userId',
@@ -25,9 +25,9 @@ const routes = [
     component: () => import('../views/Home/LoginView.vue'),
   },
   {
-    path: '/HomeView',
-    name: 'HomeView',
-    component: () => import('../views/Home/HomeView.vue'),
+    path: '/TestComponentView',
+    name: 'TestComponentView',
+    component: () => import('../views/TestComponentView.vue'),
   },
 ]
 

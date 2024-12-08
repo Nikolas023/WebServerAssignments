@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { User } from '../../models/users'
-import UserContentComponent from '@/components/UserContentComponent.vue'
+import UserContentComponent from '@/components/WorkOutComponent.vue'
 import UserNavbarComponent from '@/components/UserNavbarComponent.vue'
 
 const user = ref<User | null>(null)

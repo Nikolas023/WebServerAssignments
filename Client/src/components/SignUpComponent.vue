@@ -53,9 +53,7 @@ const signUp = async () => {
     <div class="navbar-brand">
       <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
       <div class="navbar-start">
-        <router-link class="navbar-item" id="homeBtn" to="/HomeView"
-          >Home</router-link
-        >
+        <router-link class="navbar-item" id="homeBtn" to="/">Home</router-link>
       </div>
     </div>
   </nav>
