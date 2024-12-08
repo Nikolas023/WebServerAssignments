@@ -37,7 +37,8 @@ const signUp = async () => {
 
     if (response.ok) {
       alert('Sign up successful!')
-      router.push({ name: 'User' })
+      console.log('Redirecting to User with userId:', result.user.id)
+      router.push({ name: 'User', params: { userId: result.user.id } })
     } else {
       alert('Error: ' + result.message)
     }
