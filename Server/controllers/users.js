@@ -1,4 +1,3 @@
-const model = require("../models/user");
 const supabase = require("../models/supabase");
 const express = require("express");
 const router = express.Router();

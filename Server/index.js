@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 app.use("/api/v1/users", userController);
+app.use("/api/v1/workouts", workoutController);
 
 // Serve static files from the "dist" directory
 app.use(express.static(path.join(__dirname, "dist")));

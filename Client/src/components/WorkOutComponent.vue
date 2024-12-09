@@ -1,145 +1,139 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, defineProps, defineEmits, onMounted } from 'vue'
 
-interface Workout {
-  id: string
-  date: string
-  duration: number
-  location: string
-  type: string
+const props = defineProps({
+  isActive: Boolean,
+})
+
+const emit = defineEmits(['close', 'addWorkout'])
+
+const date = ref('')
+const duration = ref(0)
+const location = ref('')
+const type = ref('Run')
+
+const dateInput = ref<HTMLInputElement | null>(null)
+
+const handleSubmit = () => {
+  // Emit the workout data to the parent component
+  emit('addWorkout', {
+    date: date.value,
+    duration: duration.value,
+    location: location.value,
+    type: type.value,
+  })
+  closeModal()
 }
 
-const route = useRoute()
-const userId = route.params.id as string
-const isAddWorkoutActive = ref(true)
-const workouts = ref<Workout[]>([])
-
-const showAddWorkoutModal = () => {
-  isAddWorkoutActive.value = true
+const closeModal = () => {
+  emit('close')
 }
 
-const closeAddWorkoutModal = () => {
-  isAddWorkoutActive.value = false
-}
-
-const fetchWorkouts = async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/workouts/${userId}`,
-      {
-        method: 'GET',
-        credentials: 'include',
-      },
-    )
-
-    const data = await response.json()
-    if (data.success) {
-      workouts.value = data.workouts
-    } else {
-      console.error('Failed to fetch workouts:', data.error)
-    }
-  } catch (error) {
-    console.error('Error fetching workouts:', error)
-  }
-}
-
-const deleteWorkout = async (id: string) => {
-  try {
-    const response = await fetch(`http://localhost:3000/api/workouts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
-
-    const result = await response.json()
-    if (result.success) {
-      workouts.value = workouts.value.filter(workout => workout.id !== id)
-    } else {
-      throw new Error(result.error || 'Failed to delete workout')
-    }
-  } catch (error) {
-    console.error('Error deleting workout:', error)
-    alert('Error deleting workout')
-  }
-}
-
-const addWorkout = async (workout: Omit<Workout, 'id'>) => {
-  try {
-    const response = await fetch(`http://localhost:3000/api/workouts/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ ...workout, userId }), // Include userId in the request
-    })
-
-    const result = await response.json()
-
-    if (!result.success) {
-      throw new Error(result.error || 'Failed to add workout')
-    }
-
-    workouts.value.push(result.workout) // Use server response to update local state
-    closeAddWorkoutModal()
-  } catch (error) {
-    console.error('Error adding workout:', error)
-    alert('Error adding workout')
+const triggerDatePicker = () => {
+  if (dateInput.value) {
+    dateInput.value.showPicker()
   }
 }
 
 onMounted(() => {
-  fetchWorkouts()
+  // Ensure the date input is focused when the icon is clicked
+  const dateInputElement = dateInput.value
+  if (dateInputElement) {
+    dateInputElement.addEventListener('click', event => {
+      event.stopPropagation()
+    })
+  }
 })
 </script>
 
 <template>
-  <div class="container">
-    <div class="column">
-      <h1 class="title is-1">My Activity</h1>
-      <div class="button" id="workoutBtn" @click="showAddWorkoutModal">
-        Add Workout
-      </div>
-      <div v-for="workout in workouts" :key="workout.id" class="card">
-        <div class="card-content">
-          <button
-            class="delete is-pulled-right"
-            @click="deleteWorkout(workout.id)"
-          ></button>
-          <p><strong>Date:</strong> {{ workout.date }}</p>
-          <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
-          <p><strong>Location:</strong> {{ workout.location }}</p>
-          <p><strong>Type:</strong> {{ workout.type }}</p>
-        </div>
+  <div class="modal" :class="{ 'is-active': props.isActive }">
+    <div class="modal-background" @click="closeModal"></div>
+    <div class="modal-content">
+      <div class="box">
+        <button class="delete is-pulled-right" @click="closeModal"></button>
+        <h1 class="title">Add Workout</h1>
+        <form @submit.prevent="handleSubmit">
+          <div class="field">
+            <label class="label">Date</label>
+            <div class="control has-icons-left">
+              <input
+                class="input date-input"
+                type="date"
+                v-model="date"
+                ref="dateInput"
+              />
+              <span class="icon is-left" @click="triggerDatePicker">
+                <i class="fas fa-calendar-alt"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Duration (minutes)</label>
+            <div class="control">
+              <input class="input" type="number" v-model="duration" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Location</label>
+            <div class="control">
+              <input class="input" type="text" v-model="location" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Type of Exercise</label>
+            <div class="control">
+              <div class="select">
+                <select v-model="type">
+                  <option>Run</option>
+                  <option>Bike</option>
+                  <option>Walk</option>
+                  <option>Cardio</option>
+                  <option>Strength</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary" type="submit">Add</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-
-  <AddWorkoutComponent
-    :isActive="isAddWorkoutActive"
-    @close="closeAddWorkoutModal"
-    @addWorkout="addWorkout"
-  />
 </template>
 
 <style scoped>
-#workoutBtn {
-  background-color: #bbe1fa;
-  color: black;
-}
-.card {
-  margin-top: 1em;
+.modal-content {
+  max-width: 600px;
+  margin: auto;
 }
 .delete.is-pulled-right {
   position: absolute;
   top: 10px;
   right: 10px;
 }
+.date-input {
+  position: relative;
+  padding-left: 2.5em; /* Adjust padding to make space for the icon */
+}
+.date-input::-webkit-calendar-picker-indicator {
+  opacity: 0; /* Hide the native calendar icon */
+  pointer-events: none; /* Ensure the native icon does not interfere */
+}
+.icon.is-left {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto; /* Ensure the icon is clickable */
+  color: white; /* Set the color of the custom calendar icon */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
 
-.title {
-  margin-top: 2rem;
+.box {
+  position: relative;
 }
 </style>
