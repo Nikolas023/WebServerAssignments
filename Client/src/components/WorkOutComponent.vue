@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import AddWorkoutComponent from './AddWorkoutComponent.vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
-// Define the Workout interface
 interface Workout {
+  id: string
   date: string
   duration: number
   location: string
   type: string
 }
 
+const route = useRoute()
+const userId = route.params.userId as string
 const isAddWorkoutActive = ref(false)
-const workouts = ref<Workout[]>([]) // List to store workout data
+const workouts = ref<Workout[]>([])
 
 const showAddWorkoutModal = () => {
   isAddWorkoutActive.value = true
@@ -21,13 +23,77 @@ const closeAddWorkoutModal = () => {
   isAddWorkoutActive.value = false
 }
 
-const addWorkout = (workout: Workout) => {
-  workouts.value.push(workout)
+const fetchWorkouts = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/workouts/${userId}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    )
+
+    const data = await response.json()
+    if (data.success) {
+      workouts.value = data.workouts
+    } else {
+      console.error('Failed to fetch workouts:', data.error)
+    }
+  } catch (error) {
+    console.error('Error fetching workouts:', error)
+  }
 }
 
-const deleteWorkout = (index: number) => {
-  workouts.value.splice(index, 1)
+const deleteWorkout = async (id: string) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/workouts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+
+    const result = await response.json()
+    if (result.success) {
+      workouts.value = workouts.value.filter(workout => workout.id !== id)
+    } else {
+      throw new Error(result.error || 'Failed to delete workout')
+    }
+  } catch (error) {
+    console.error('Error deleting workout:', error)
+    alert('Error deleting workout')
+  }
 }
+
+const addWorkout = async (workout: Omit<Workout, 'id'>) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/workouts/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ ...workout, userId }), // Include userId in the request
+    })
+
+    const result = await response.json()
+
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to add workout')
+    }
+
+    workouts.value.push(result.workout) // Use server response to update local state
+    closeAddWorkoutModal()
+  } catch (error) {
+    console.error('Error adding workout:', error)
+    alert('Error adding workout')
+  }
+}
+
+onMounted(() => {
+  fetchWorkouts()
+})
 </script>
 
 <template>
@@ -37,11 +103,11 @@ const deleteWorkout = (index: number) => {
       <div class="button" id="workoutBtn" @click="showAddWorkoutModal">
         Add Workout
       </div>
-      <div v-for="(workout, index) in workouts" :key="index" class="card">
+      <div v-for="workout in workouts" :key="workout.id" class="card">
         <div class="card-content">
           <button
             class="delete is-pulled-right"
-            @click="deleteWorkout(index)"
+            @click="deleteWorkout(workout.id)"
           ></button>
           <p><strong>Date:</strong> {{ workout.date }}</p>
           <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>

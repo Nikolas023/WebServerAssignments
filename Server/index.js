@@ -6,6 +6,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const userController = require("./controllers/users");
+const workoutController = require("./controllers/workouts");
 const PORT = process.env.PORT || 3000;
 
 // Middleware for CORS
