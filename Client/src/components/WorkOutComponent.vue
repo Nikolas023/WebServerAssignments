@@ -11,8 +11,8 @@ interface Workout {
 }
 
 const route = useRoute()
-const userId = route.params.userId as string
-const isAddWorkoutActive = ref(false)
+const userId = route.params.id as string
+const isAddWorkoutActive = ref(true)
 const workouts = ref<Workout[]>([])
 
 const showAddWorkoutModal = () => {

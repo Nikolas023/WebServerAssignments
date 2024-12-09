@@ -1,6 +1,3 @@
-// server/model/user.js
-const data = require("../data/users.json");
-
 // Gets all users.
 async function getAllUsers() {
   return {
