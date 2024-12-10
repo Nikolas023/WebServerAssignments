@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fortawesome/fontawesome-free':
+        specifier: ^6.7.1
+        version: 6.7.1
       '@fortawesome/fontawesome-svg-core':
         specifier: ^6.6.0
         version: 6.6.0
@@ -33,6 +36,9 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4
+      '@types/google.accounts':
+        specifier: ^0.0.1
+        version: 0.0.1
       '@types/node':
         specifier: ^20.16.11
         version: 20.16.13
@@ -408,6 +414,10 @@ packages:
     resolution: {integrity: sha512-xyX0X9mc0kyz9plIyryrRbl7ngsA9jz77mCZJsUkLl+ZKs0KWObgaEBoSgQiYWAsSmjz/yjl0F++Got0Mdp4Rw==}
     engines: {node: '>=6'}
 
+  '@fortawesome/fontawesome-free@6.7.1':
+    resolution: {integrity: sha512-ALIk/MOh5gYe1TG/ieS5mVUsk7VUIJTJKPMK9rFFqOgfp0Q3d5QiBXbcOMwUvs37fyZVCz46YjOE6IFeOAXCHA==}
+    engines: {node: '>=6'}
+
   '@fortawesome/fontawesome-svg-core@6.6.0':
     resolution: {integrity: sha512-KHwPkCk6oRT4HADE7smhfsKudt9N/9lm6EJ5BVg0tD1yPA5hht837fB87F8pn15D8JfTqQOjhKTktwmLMiD7Kg==}
     engines: {node: '>=6'}
@@ -569,6 +579,9 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/google.accounts@0.0.1':
+    resolution: {integrity: sha512-US+e68xwCoiieDI1HYVCbk8PHCB6GIHyWUSBxpFAbTYtmvtnXLzbBusZrz3HCYAOBijkZebSNGNkc746Qz3R7Q==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -2037,6 +2050,8 @@ snapshots:
 
   '@fortawesome/fontawesome-common-types@6.6.0': {}
 
+  '@fortawesome/fontawesome-free@6.7.1': {}
+
   '@fortawesome/fontawesome-svg-core@6.6.0':
     dependencies:
       '@fortawesome/fontawesome-common-types': 6.6.0
@@ -2153,6 +2168,8 @@ snapshots:
   '@tsconfig/node20@20.1.4': {}
 
   '@types/estree@1.0.6': {}
+
+  '@types/google.accounts@0.0.1': {}
 
   '@types/json-schema@7.0.15': {}
 

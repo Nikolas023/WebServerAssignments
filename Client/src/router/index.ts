@@ -1,14 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { routes } from 'vue-router/auto-routes'
+import { routes as autoRoutes } from 'vue-router/auto-routes'
+
+const routes = [
+  ...autoRoutes,
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('../views/Home/HomeView.vue'),
+  },
+  {
+    path: '/user/:userId',
+    name: 'User',
+    component: () => import('../views/User/UserView.vue'),
+    props: true,
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: () => import('../views/Home/SignUpView.vue'),
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Home/LoginView.vue'),
+  },
+  {
+    path: '/TestComponentView',
+    name: 'TestComponentView',
+    component: () => import('../views/TestComponentView.vue'),
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    ...routes,
-    { path: '/', redirect: '/HomeView' }, // Add this line to redirect from / to /HomeView
-  ],
+  routes,
 })
 
 export default router
-
-// It's making custom routes like /login when I hit the login button, when I need it to be /loginView. I need to figure out how to make /login work for the login button and

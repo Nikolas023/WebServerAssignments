@@ -6,38 +6,9 @@
 GET https://google.com
 
 ###
-POST https://dummyjson.com/products/add
-MyHeader: MyValue
-
-{
-    "title": "Green Lip Stick",
-    "price": 10.99,
-    "description": "This is a green lip stick",
-    "image": "https://dummyimage.com/300x300.png/00ff00/ffffff"
-}
+POST https://localhost:3000/api/v1/users/signup
 
 # Fix error getaddrinfo ENOTFOUND localhost3000.
 
 ###
-GET http://localhost3000/about
-
-###
-GET http://localhost:3000/users
-
-###
-GET http://localhost:3000/users/30
-
-###
-DELETE http://localhost:3000/users/1
-
-###
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-    "firstName": "Nick",
-    "lastName": "Doe",
-    "age": 30,
-    "email": "idk@gmail.com",
-    "password": "123456"
-}
+GET http://localhost3000/users

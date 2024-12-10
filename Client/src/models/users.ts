@@ -1,26 +1,21 @@
+import { ref } from 'vue'
+
 export class User {
   id?: number
   firstName: string = ''
   lastName: string = ''
   email: string = ''
-  phone: string = ''
+  username: string = ''
   password: string = ''
-  birthDate: string = ''
-  image: string = ''
-  address: {
-    address: string
-    city: string
-    state: string
-    stateCode: string
-    postalCode: string
-    country: string
-  } = {
-    address: '',
-    city: '',
-    state: '',
-    stateCode: '',
-    postalCode: '',
-    country: 'United States',
-  }
+
   role: string = 'admin'
 }
+
+const session = ref({
+  user: null as User | null,
+  token: '',
+  message: '',
+  isLoading: false,
+})
+
+export const refSession = () => session
