@@ -4,7 +4,7 @@ const router = express.Router();
 
 // When adding the date the format is YYYY-MM-DD
 
-// GET: Fetch all workouts
+// GET: Fetch all workouts from a specific user
 router.get("/:id/", async (req, res) => {
   try {
     const { id } = req.params; // Extract user ID from route parameters
@@ -65,12 +65,14 @@ router.post("/:id", async (req, res) => {
     }
 
     console.log(user.usersuuid);
+    console.log(id);
 
     const { data, error } = await supabase
       .getConnection()
       .from("workouts")
       .insert([
         {
+          id: id,
           date,
           duration,
           location,
