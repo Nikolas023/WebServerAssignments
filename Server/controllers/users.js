@@ -49,13 +49,13 @@ router.post("/signup", async (req, res) => {
       .getConnection()
       .from("users")
       .insert({
-        usersuuid: user.id,
         email,
         firstname,
         lastname,
         username,
         password,
-      });
+      })
+      .select("id");
 
     if (insertError) {
       return res.status(400).json({ message: insertError.message });

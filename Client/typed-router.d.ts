@@ -22,8 +22,9 @@ declare module 'vue-router/auto-routes' {
     '/Admin/AdminUserView': RouteRecordInfo<'/Admin/AdminUserView', '/Admin/AdminUserView', Record<never, never>, Record<never, never>>,
     '/LoginView': RouteRecordInfo<'/LoginView', '/LoginView', Record<never, never>, Record<never, never>>,
     '/SignUpView': RouteRecordInfo<'/SignUpView', '/SignUpView', Record<never, never>, Record<never, never>>,
+    '/User/': RouteRecordInfo<'/User/', '/User', Record<never, never>, Record<never, never>>,
+    '/User/[id]': RouteRecordInfo<'/User/[id]', '/User/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/User/FriendsView': RouteRecordInfo<'/User/FriendsView', '/User/FriendsView', Record<never, never>, Record<never, never>>,
     '/User/SearchView': RouteRecordInfo<'/User/SearchView', '/User/SearchView', Record<never, never>, Record<never, never>>,
-    '/User/UserView': RouteRecordInfo<'/User/UserView', '/User/UserView', Record<never, never>, Record<never, never>>,
   }
 }

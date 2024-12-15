@@ -3,10 +3,8 @@ import { ref } from 'vue'
 import type { RouterLink } from 'vue-router'
 import { useRouter } from 'vue-router'
 
-// Find a way to make sure you can't sign up twice.
-
-const firstName = ref('')
-const lastName = ref('')
+const firstname = ref('')
+const lastname = ref('')
 const email = ref('')
 const password = ref('')
 const password2 = ref('')
@@ -28,8 +26,8 @@ const signUp = async () => {
       body: JSON.stringify({
         email: email.value,
         password: password.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
+        firstname: firstname.value,
+        lastname: lastname.value,
         username: username.value,
       }),
     })
@@ -37,11 +35,10 @@ const signUp = async () => {
     const result = await response.json()
 
     if (response.ok) {
-      alert('Sign up successful!')
-      console.log('Redirecting to User with userId:', result.user.id)
-      router.push({ name: 'User', params: { userId: result.user.id } })
+      // figure out how to pass the primary key column 'id' from the users table rather than the usersuuid column.
+      router.push(`/User/${result.user.id}`)
     } else {
-      alert('Error: ' + result.message)
+      alert('Error: ' + result.error)
     }
   } catch (error) {
     alert('Error: ' + error)
@@ -55,46 +52,47 @@ const signUp = async () => {
       <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
       <div class="navbar-start">
         <RouterLink to="/">
-          <a class="navbar-item" id="homeBtn">Home </a>
+          <a class="navbar-item" id="homeBtn">Home</a>
         </RouterLink>
       </div>
     </div>
   </nav>
+
   <form class="box" @submit.prevent="signUp">
     <div class="field">
       <label class="label">First Name</label>
       <div class="control">
-        <input class="input" type="text" v-model="firstName" required />
+        <input class="input" type="text" v-model="firstname" />
       </div>
     </div>
     <div class="field">
       <label class="label">Last Name</label>
       <div class="control">
-        <input class="input" type="text" v-model="lastName" required />
+        <input class="input" type="text" v-model="lastname" />
       </div>
     </div>
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" type="email" v-model="email" required />
+        <input class="input" type="email" v-model="email" />
       </div>
     </div>
     <div class="field">
       <label class="label">Create a Password</label>
       <div class="control">
-        <input class="input" type="password" v-model="password" required />
+        <input class="input" type="password" v-model="password" />
       </div>
     </div>
     <div class="field">
       <label class="label">Confirm Password</label>
       <div class="control">
-        <input class="input" type="password" v-model="password2" required />
+        <input class="input" type="password" v-model="password2" />
       </div>
     </div>
     <div class="field">
       <label class="label">Username</label>
       <div class="control">
-        <input class="input" type="text" v-model="username" required />
+        <input class="input" type="text" v-model="username" />
       </div>
     </div>
     <button class="button is-primary" type="submit">Sign up</button>
