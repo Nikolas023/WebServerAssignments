@@ -7,6 +7,7 @@ const path = require("path");
 const app = express();
 const userController = require("./controllers/users");
 const workoutController = require("./controllers/workouts");
+const friendController = require("./controllers/friends");
 const PORT = process.env.PORT || 3000;
 
 // Middleware for CORS
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // API Routes
 app.use("/api/v1/users", userController);
 app.use("/api/v1/workouts", workoutController);
+app.use("/api/v1/friends", friendController);
 
 // Serve static files from the "dist" directory
 app.use(express.static(path.join(__dirname, "dist")));
