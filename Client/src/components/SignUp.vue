@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { RouterLink } from 'vue-router'
 import { useRouter } from 'vue-router'
 
 // Find a way to make sure you can't sign up twice.
@@ -53,7 +54,9 @@ const signUp = async () => {
     <div class="navbar-brand">
       <div class="navbar-item" id="mainLogo">STRONG FITNESS</div>
       <div class="navbar-start">
-        <router-link class="navbar-item" id="homeBtn" to="/">Home</router-link>
+        <RouterLink to="/">
+          <a class="navbar-item" id="homeBtn">Home </a>
+        </RouterLink>
       </div>
     </div>
   </nav>

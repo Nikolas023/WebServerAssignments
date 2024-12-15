@@ -1,16 +1,4 @@
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const navigateToSignUp = () => {
-  router.push({ name: 'SignUp' })
-}
-
-const navigateToLogin = () => {
-  router.push({ name: 'Login' })
-}
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section class="hero">
@@ -22,14 +10,18 @@ const navigateToLogin = () => {
       </p>
     </div>
     <div>
-      <a class="button is-primary" id="sign-up-button" @click="navigateToSignUp"
-        ><strong>Sign up</strong></a
+      <RouterLink
+        to="/SignUpView"
+        class="button is-primary"
+        id="sign-up-button"
       >
+        <strong>Sign up</strong>
+      </RouterLink>
     </div>
     <div>
-      <a class="button is-primary" id="log-in-button" @click="navigateToLogin"
-        >Log In</a
-      >
+      <RouterLink to="/LoginView" class="button is-primary" id="log-in-button">
+        <strong>Log in</strong>
+      </RouterLink>
     </div>
   </section>
 </template>

@@ -1,35 +1,4 @@
-<script lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { logInUser } from '@/services/authService' // Import from the service
-
-export default {
-  setup() {
-    const email = ref('')
-    const password = ref('')
-    const router = useRouter()
-
-    const logIn = async () => {
-      // Use the auth service to log in
-      const { data, error } = await logInUser(email.value, password.value)
-
-      if (error) {
-        alert(error)
-        return
-      }
-
-      // Redirect to UserView with the user's ID
-      router.push({ name: 'UserView', params: { userId: data.id } })
-    }
-
-    return {
-      email,
-      password,
-      logIn,
-    }
-  },
-}
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -41,17 +10,17 @@ export default {
     </div>
   </nav>
 
-  <form class="box" @submit.prevent="logIn">
+  <form class="box">
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" type="email" v-model="email" required />
+        <input class="input" type="email" required />
       </div>
     </div>
     <div class="field">
       <label class="label">Password</label>
       <div class="control">
-        <input class="input" type="password" v-model="password" required />
+        <input class="input" type="password" required />
       </div>
     </div>
 
