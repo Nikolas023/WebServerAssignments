@@ -3,8 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 // POST: Create a new user (Sign up)
+// api/v1/users/signup
+// supabase will not let you sign up with an email which ends in gmail.com but doesn't exist. It will return a 400 error. You can make up an email like "doe@mail.com" or something that isn't an official email provider.
 router.post("/signup", async (req, res) => {
-  const { email, firstName, lastName, username, password } = req.body;
+  const { email, firstname, lastname, username, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
@@ -49,8 +51,8 @@ router.post("/signup", async (req, res) => {
       .insert({
         usersuuid: user.id,
         email,
-        firstName,
-        lastName,
+        firstname,
+        lastname,
         username,
         password,
       });
@@ -67,6 +69,7 @@ router.post("/signup", async (req, res) => {
 });
 
 // GET: Fetch all users
+// api/v1/users
 router.get("/", async (req, res) => {
   try {
     const { data: users, error } = await supabase
@@ -85,6 +88,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET: Fetch a user by their ID
+// api/v1/users/:id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -113,6 +117,7 @@ router.get("/:id", async (req, res) => {
 
 // Data is null here too.
 // PATCH: Update user details
+// api/v1/users/:id
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const { firstName, lastName, username, email } = req.body;
@@ -146,6 +151,7 @@ router.patch("/:id", async (req, res) => {
 
 // DELETE doesn't work. Issue is that data is null because of a missing auth token from the user.
 // DELETE: Remove a user by their ID
+// api/v1/users/:id
 router.delete("/:id", async (req, res) => {
   const { id } = req.params; // User ID to be deleted
   const token = req.headers.authorization?.split(" ")[1]; // Extract token from Authorization header
