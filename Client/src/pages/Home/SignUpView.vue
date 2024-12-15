@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import SignUpComponent from '@/components/SignUpComponent.vue'
+import SignUpComponent from '@/components/SignUp.vue'
 </script>
