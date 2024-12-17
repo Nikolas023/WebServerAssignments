@@ -5,6 +5,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import Navbar from '@/components/Navbar.vue'
-import Home from '@/components/Home.vue'
+import Navbar from '@/components/HomeComponent/Navbar.vue'
+import Home from '@/components/HomeComponent/Home.vue'
 </script>

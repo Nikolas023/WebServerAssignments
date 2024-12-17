@@ -10,7 +10,7 @@ const toggleMenu = () => {
 }
 
 const navigateToHome = () => {
-  router.push('/HomeView')
+  router.push('/')
 }
 </script>
 
@@ -38,24 +38,24 @@ const navigateToHome = () => {
       :class="{ 'is-active': isMenuActive }"
     >
       <div class="navbar-start">
-        <router-link class="navbar-item" to="/UserView">
+        <RouterLink class="navbar-item" to="/UserView">
           <span class="icon">
             <i class="fas fa-home"></i>
           </span>
           My Activity
-        </router-link>
-        <router-link class="navbar-item" to="/FriendsView">
+        </RouterLink>
+        <RouterLink class="navbar-item" to="/FriendsView">
           <span class="icon">
             <i class="fas fa-users"></i>
           </span>
           Friends Activity
-        </router-link>
-        <router-link class="navbar-item" to="/SearchView">
+        </RouterLink>
+        <RouterLink class="navbar-item" to="/SearchView">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
           People Search
-        </router-link>
+        </RouterLink>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <span class="icon">
@@ -64,18 +64,22 @@ const navigateToHome = () => {
             Admin
           </a>
           <div class="navbar-dropdown">
-            <router-link class="navbar-item" to="/AdminUserView">
+            <RouterLink class="navbar-item" to="/AdminUserView">
               <span class="icon">
                 <i class="fas fa-user"></i>
               </span>
               Users
-            </router-link>
+            </RouterLink>
           </div>
         </div>
       </div>
       <div class="navbar-end">
         <div class="buttons">
-          <a class="button is-light" id="log-in-button" @click="navigateToHome">
+          <a
+            class="button is-light"
+            id="log-out-button"
+            @click="navigateToHome"
+          >
             Log out
           </a>
         </div>
@@ -84,4 +88,10 @@ const navigateToHome = () => {
   </nav>
 </template>
 
-<style scoped></style>
+<style scoped>
+#log-out-button {
+  margin-right: 1em;
+  color: black;
+  background-color: #bbe1fa;
+}
+</style>

@@ -6,6 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import UserNavbarComponent from '@/components/UserNavbar.vue'
-import SearchComponent from '@/components/Search.vue'
+import UserNavbarComponent from '@/components/UserComponent/UserNavbar.vue'
+import SearchComponent from '@/components/UserComponent/Search/Search.vue'
 </script>

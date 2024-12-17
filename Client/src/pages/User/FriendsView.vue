@@ -6,6 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import UserNavbarComponent from '@/components/UserNavbar.vue'
-import FriendsComponent from '@/components/Friends.vue'
+import UserNavbarComponent from '@/components/UserComponent/UserNavbar.vue'
+import FriendsComponent from '@/components/UserComponent/FriendsActivity/Friends.vue'
 </script>

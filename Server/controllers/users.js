@@ -115,7 +115,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// GET: Verify user credentials and return their ID if valid
+// GET: Get specific user based off email and password.
 router.get("/login/:email/:password", async (req, res) => {
   const { email, password } = req.params;
 

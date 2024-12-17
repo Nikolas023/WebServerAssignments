@@ -1,7 +1,9 @@
 <template>
   <UserNavbar />
+  <MyActivity />
 </template>
 
 <script setup lang="ts">
-import UserNavbar from '../../components/UserNavbar.vue'
+import MyActivity from '@/components/UserComponent/MyActivity/MyActivity.vue'
+import UserNavbar from '@/components/UserComponent/UserNavbar.vue'
 </script>

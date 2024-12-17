@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 import AdminUserComponent from '@/components/AdminUser.vue'
-import UserNavbarComponent from '@/components/UserNavbar.vue'
+import UserNavbarComponent from '@/components/UserComponent/UserNavbar.vue'
 </script>
 
 <style scoped></style>

@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import SignUp from '../components/SignUp.vue'
+import SignUp from '../components/HomeComponent/SignUp.vue'
 </script>

@@ -22,11 +22,8 @@ const login = async () => {
 
     if (response.ok) {
       const userId = result.id
-      alert('User ID:' + userId)
-      router.push(`/Users/${userId}`)
+      router.push(`/User/${userId}`)
     } else {
-      const userId = result.id
-      alert('User ID:' + userId)
       alert('Error: ' + result.message)
     }
   } catch (error) {
