@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
 import { useRouter } from 'vue-router'
 
 const email = ref('')
@@ -8,24 +7,30 @@ const password = ref('')
 const router = useRouter()
 
 const login = async () => {
-  const response = await fetch('http://localhost:3000/api/v1/users/:id', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value,
-    }),
-  })
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/users/login/${email.value}/${password.value}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
 
-  if (response.ok) {
-    const data = await response.json()
-    localStorage.setItem('token', data.token)
-    router.push(`/User/${data.user.id}`)
-  } else {
-    alert('Login failed')
-    console.error('Login failed')
+    const result = await response.json()
+
+    if (response.ok) {
+      const userId = result.id
+      alert('User ID:' + userId)
+      router.push(`/Users/${userId}`)
+    } else {
+      const userId = result.id
+      alert('User ID:' + userId)
+      alert('Error: ' + result.message)
+    }
+  } catch (error) {
+    alert('Error: ' + error)
   }
 }
 </script>
@@ -46,13 +51,13 @@ const login = async () => {
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" type="email" required />
+        <input class="input" type="email" v-model="email" required />
       </div>
     </div>
     <div class="field">
       <label class="label">Password</label>
       <div class="control">
-        <input class="input" type="password" required />
+        <input class="input" type="password" v-model="password" required />
       </div>
     </div>
 

@@ -115,6 +115,35 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// GET: Verify user credentials and return their ID if valid
+router.get("/login/:email/:password", async (req, res) => {
+  const { email, password } = req.params;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  try {
+    // Fetch the user by email and password
+    const { data: user, error } = await supabase
+      .getConnection()
+      .from("users")
+      .select("id, email, password")
+      .eq("email", email)
+      .eq("password", password)
+      .single(); // Expect only one user
+
+    if (error) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    res.status(200).json({ message: "Login successful", id: user.id });
+  } catch (err) {
+    console.error("Unexpected error:", err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Data is null here too.
 // PATCH: Update user details
 // api/v1/users/:id
