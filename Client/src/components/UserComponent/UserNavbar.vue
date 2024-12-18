@@ -45,13 +45,13 @@ const navigateToHome = () => {
           </span>
           My Activity
         </RouterLink>
-        <RouterLink class="navbar-item" to="/FriendsView">
+        <RouterLink class="navbar-item" :to="`/User/Friends/${props.userId}`">
           <span class="icon">
             <i class="fas fa-users"></i>
           </span>
           Friends Activity
         </RouterLink>
-        <RouterLink class="navbar-item" to="/SearchView">
+        <RouterLink class="navbar-item" :to="`/User/Search/${props.userId}`">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>

@@ -1,12 +1,12 @@
 <template>
   <UserNavbar :userId="userId" />
-  <MyActivity />
+  <Search />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import MyActivity from '@/components/UserComponent/MyActivity/MyActivity.vue'
+import Search from '@/components/UserComponent/Search/Search.vue'
 import UserNavbar from '@/components/UserComponent/UserNavbar.vue'
 
 const route = useRoute()

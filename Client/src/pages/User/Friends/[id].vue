@@ -1,12 +1,12 @@
 <template>
   <UserNavbar :userId="userId" />
-  <MyActivity />
+  <Friends />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import MyActivity from '@/components/UserComponent/MyActivity/MyActivity.vue'
+import Friends from '@/components/UserComponent/FriendsActivity/Friends.vue'
 import UserNavbar from '@/components/UserComponent/UserNavbar.vue'
 
 const route = useRoute()
