@@ -1,5 +1,5 @@
 require("dotenv").config({
-  path: require("path").resolve(__dirname, "../.env"),
+  path: require("path").resolve(__dirname, "../.env"), // Looks for .env in the root
 });
 
 const express = require("express");
