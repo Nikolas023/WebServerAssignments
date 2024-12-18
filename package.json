@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "concurrently \"pnpm run start-server\" \"pnpm run start-client\"",
+    "start": "npx concurrently \"pnpm run start-server\" \"pnpm run start-client\"",
     "start-server": "node Server/index.js",
     "start-client": "pnpm --prefix Client start",
     "dev": "nodemon Server/index.js --watch server",
