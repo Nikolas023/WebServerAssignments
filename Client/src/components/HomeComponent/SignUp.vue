@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { RouterLink } from 'vue-router'
 import { useRouter } from 'vue-router'
 
 const firstname = ref('')
@@ -25,17 +24,16 @@ const signUp = async () => {
       },
       body: JSON.stringify({
         email: email.value,
+        username: username.value,
         password: password.value,
         firstname: firstname.value,
         lastname: lastname.value,
-        username: username.value,
       }),
     })
 
     const result = await response.json()
 
     if (response.ok) {
-      // figure out how to pass the primary key column 'id' from the users table rather than the usersuuid column.
       router.push(`/User/${result.user.id}`)
     } else {
       alert('Error: ' + result.error)

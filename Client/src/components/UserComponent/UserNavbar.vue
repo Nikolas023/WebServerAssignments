@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const props = defineProps<{ userId: string }>()
 const isMenuActive = ref(false)
 const router = useRouter()
+const route = useRoute()
 
 const toggleMenu = () => {
   isMenuActive.value = !isMenuActive.value
@@ -13,6 +14,11 @@ const toggleMenu = () => {
 const navigateToHome = () => {
   router.push('/')
 }
+
+const adminUserId = '5'
+const currentUserId = (route.params as { id: string }).id
+
+const isAdmin = currentUserId === adminUserId
 </script>
 
 <template>
@@ -57,7 +63,7 @@ const navigateToHome = () => {
           </span>
           People Search
         </RouterLink>
-        <div class="navbar-item has-dropdown is-hoverable">
+        <div v-if="isAdmin" class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <span class="icon">
               <i class="fas fa-user-shield"></i>
@@ -65,7 +71,7 @@ const navigateToHome = () => {
             Admin
           </a>
           <div class="navbar-dropdown">
-            <RouterLink class="navbar-item" to="/AdminUserView">
+            <RouterLink class="navbar-item" :to="`/User/Admin/${props.userId}`">
               <span class="icon">
                 <i class="fas fa-user"></i>
               </span>
