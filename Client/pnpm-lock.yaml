@@ -3181,6 +3181,7 @@ snapshots:
       '@fortawesome/free-solid-svg-icons': 6.6.0
       '@fortawesome/vue-fontawesome': 3.0.8(@fortawesome/fontawesome-svg-core@6.6.0)(vue@3.5.12(typescript@5.5.4))
       bulma: 1.0.2
+      concurrently: 9.1.0
       vue: 3.5.12(typescript@5.5.4)
       vue-router: 4.4.5(vue@3.5.12(typescript@5.5.4))
     transitivePeerDependencies:
