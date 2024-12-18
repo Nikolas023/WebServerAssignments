@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node Server/index.js",
+    "start": "concurrently \"pnpm run start-server\" \"pnpm run start-client\"",
+    "start-server": "node Server/index.js",
+    "start-client": "pnpm --prefix Client start",
     "dev": "nodemon Server/index.js --watch server",
-    "build": "pnpm run build-server && npm run build-client",
+    "build": "pnpm run build-server && pnpm run build-client",
     "build-server": "tsc -p Server/tsconfig.json",
     "build-client": "tsc -p Client/tsconfig.json"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.2",
     "axios": "^1.7.8",
+    "concurrently": "^9.1.0",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
