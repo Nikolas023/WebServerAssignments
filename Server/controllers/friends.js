@@ -3,19 +3,18 @@ const express = require("express");
 const router = express.Router();
 
 // Able to add yourself as a friend. This is a bug.
-// POST: Add a friend based on the user's email passed in the request body. When adding a friend the paramater in the http request is the user's id. We add a friend to the user with the id passed in the parameter.
-// The userid column in the freinds table represents the user that is freinds with the associated email.
-router.post("/:id", async (req, res) => {
-  const { id } = req.params; // Extract user ID from URL parameters
-  const { email } = req.body; // Get friend's email from the request body
+// POST: Add a friend based on the username. The friend's username is passed in the URL parameters as well as the user ID. This user ID corresponds with the user that wants to add a friend.
+
+router.post("/:id/:username", async (req, res) => {
+  const { id: userid, username } = req.params;
 
   try {
-    // Fetch the friend's user ID from the users table using the email
+    // Fetch the friend's user details from the users table using the username
     const { data: friend, error: friendError } = await supabase
       .getConnection()
       .from("users")
-      .select("id, firstname, lastname")
-      .eq("email", email)
+      .select("id, firstname, lastname, email")
+      .eq("username", username)
       .single();
 
     if (friendError) {
@@ -32,8 +31,8 @@ router.post("/:id", async (req, res) => {
       .from("friends")
       .insert([
         {
-          userid: id,
-          email: email,
+          userid: userid,
+          email: friend.email,
           firstname: friend.firstname,
           lastname: friend.lastname,
         },

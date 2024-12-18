@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const userId = (route.params as { id: string }).id // Extract userId from the URL
+const username = ref('') // Username entered by the user.
 
-const username = ref('')
 interface User {
   id: string
   username: string
@@ -48,25 +48,25 @@ const searchUsers = async () => {
   }
 }
 
-const addFriend = async (friendId: string) => {
+const addFriend = async () => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/friends/${userId}`,
+      `http://localhost:3000/api/v1/friends/${userId}/${username.value}`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          friendId,
-        }),
       },
     )
+
+    const result = await response.json()
 
     if (response.ok) {
       alert('Friend added successfully!')
     } else {
-      const result = await response.json()
+      alert('UserId: ' + userId)
+      alert('username: ' + username.value)
       alert('Error: ' + result.message)
     }
   } catch (error) {
@@ -103,7 +103,7 @@ const addFriend = async (friendId: string) => {
             <div class="card-content">
               <p><strong>Username:</strong> {{ user.username }}</p>
               <p><strong>Email:</strong> {{ user.email }}</p>
-              <button @click="addFriend(user.id)" class="button is-primary">
+              <button @click="addFriend()" class="button is-primary">
                 Add Friend
               </button>
             </div>
