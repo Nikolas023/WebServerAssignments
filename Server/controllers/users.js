@@ -115,6 +115,29 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// GET: Get a specific user based off their username.
+router.get("/username/:username", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const { data, error } = await supabase
+      .getConnection()
+      .from("users")
+      .select("username, email")
+      .eq("username", username)
+      .single(); // Expect only one user
+
+    if (error) {
+      console.error("User doesn't exist:", error.message);
+      return res.status(500).json({ message: "Error fetching user" });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // GET: Get specific user based off email and password.
 router.get("/login/:email/:password", async (req, res) => {
   const { email, password } = req.params;
