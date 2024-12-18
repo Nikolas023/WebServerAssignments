@@ -1,3 +1,4 @@
+const { json } = require("sequelize");
 const supabase = require("../models/supabase");
 const express = require("express");
 const router = express.Router();
@@ -201,63 +202,22 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// DELETE doesn't work. Issue is that data is null because of a missing auth token from the user.
-// DELETE: Remove a user by their ID
-// api/v1/users/:id
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params; // User ID to be deleted
-  const token = req.headers.authorization?.split(" ")[1]; // Extract token from Authorization header
+// DELETE: Remove a user by their email
+// api/v1/users/:email
+// DELETE: Remove a user by their email
+// api/v1/users/:email
+router.delete("/:email", async (req, res) => {
+  const { email } = req.params; // User email to be deleted
 
-  if (!token) {
-    return res.status(401).json({ message: "Authorization token is missing" });
-  }
+  console.log(`Attempting to delete user with email: ${email}`);
 
   try {
-    // Log token for debugging
-    console.log("Received Token:", token);
-
-    // Verify the token with Supabase
-    const { data: session, error: sessionError } =
-      await supabase.auth.api.getUser(token);
-    if (sessionError) {
-      console.error("Error verifying token:", sessionError.message);
-      return res.status(401).json({ message: "Invalid or expired token" });
-    }
-
-    console.log("Authenticated User ID:", session.id);
-
-    // Fetch the user to be deleted by the provided `id`
-    const { data: existingUser, error: fetchError } = await supabase
-      .getConnection()
-      .from("users")
-      .select("*")
-      .eq("id", id) // Fetch user by ID
-      .single(); // Expect one result
-
-    if (fetchError || !existingUser) {
-      console.error(
-        "Error fetching user:",
-        fetchError?.message || "User not found"
-      );
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    console.log("Existing User:", existingUser); // Log user info
-
-    // Check if the authenticated user is the same user trying to delete their own account
-    if (existingUser.usersuuid !== session.id) {
-      console.error("Unauthorized attempt to delete user.");
-      return res
-        .status(403)
-        .json({ message: "You are not authorized to delete this user" });
-    }
-
     // Proceed with delete
     const { data, error } = await supabase
       .getConnection()
       .from("users")
       .delete()
-      .eq("usersuuid", session.id); // Use the authenticated user's UUID to delete their account
+      .eq("email", email);
 
     if (error) {
       console.error("Error deleting user:", error.message);
@@ -266,6 +226,9 @@ router.delete("/:id", async (req, res) => {
         .json({ message: `Error deleting user: ${error.message}` });
     }
 
+    console.log(`Delete response: ${JSON.stringify(data)}`);
+
+    // Check if any rows were affected
     if (!data || data.length === 0) {
       console.error(
         "No rows deleted: User might not exist or was already deleted."
