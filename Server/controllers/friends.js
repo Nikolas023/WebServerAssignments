@@ -57,31 +57,15 @@ router.get("/:id", async (req, res) => {
     const { data: friends, error } = await supabase
       .getConnection()
       .from("friends")
-      .select("friend_userid")
+      .select("email, firstname, lastname")
       .eq("userid", id);
 
     if (error) {
+      console.log("User ID: " + userId);
       return res.status(500).json({ message: error.message });
     }
 
-    const friendDetails = await Promise.all(
-      friends.map(async (friend) => {
-        const { data, error: userError } = await supabase
-          .getConnection()
-          .from("users")
-          .select("email, firstname, lastname")
-          .eq("id", friend.friend_userid)
-          .single();
-
-        if (userError) {
-          return { error: userError.message };
-        }
-
-        return data;
-      })
-    );
-
-    res.status(200).json(friendDetails);
+    res.status(200).json(friends);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
