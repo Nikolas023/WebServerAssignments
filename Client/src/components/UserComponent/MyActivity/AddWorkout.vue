@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const userId = (route.params as { id: string }).id // Extract userId from the URL
 
 const date = ref('')
 const duration = ref('')
@@ -8,8 +12,6 @@ const type = ref('Run')
 const emit = defineEmits(['close', 'addWorkout'])
 
 const handleSubmit = async () => {
-  const userId = 1 // Replace with the actual user ID
-
   try {
     const response = await fetch(
       `http://localhost:3000/api/v1/workouts/${userId}`,
@@ -62,7 +64,7 @@ const closeModal = () => {
         <div class="field">
           <label class="label">Duration in minutes</label>
           <div class="control">
-            <input class="input" type="text" v-model="duration" />
+            <input class="input" type="number" v-model="duration" />
           </div>
         </div>
         <div class="field">
