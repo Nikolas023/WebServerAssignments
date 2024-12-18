@@ -116,6 +116,7 @@ onMounted(fetchWorkouts)
 #workoutBtn {
   background-color: #bbe1fa;
   color: black;
+  margin-bottom: 1rem;
 }
 h1 {
   margin-top: 1rem;
