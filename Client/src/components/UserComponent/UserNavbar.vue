@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 
+const props = defineProps<{ userId: string }>()
 const isMenuActive = ref(false)
 const router = useRouter()
 
@@ -38,7 +39,7 @@ const navigateToHome = () => {
       :class="{ 'is-active': isMenuActive }"
     >
       <div class="navbar-start">
-        <RouterLink class="navbar-item" to="/UserView">
+        <RouterLink class="navbar-item" :to="`/User/${props.userId}`">
           <span class="icon">
             <i class="fas fa-home"></i>
           </span>
