@@ -57,7 +57,7 @@ router.get("/:id", async (req, res) => {
     const { data: friends, error } = await supabase
       .getConnection()
       .from("friends")
-      .select("email, firstname, lastname")
+      .select("id, email, firstname, lastname")
       .eq("userid", id);
 
     if (error) {
@@ -81,7 +81,7 @@ router.delete("/:id/:friendid", async (req, res) => {
       .from("friends")
       .delete()
       .eq("userid", id)
-      .eq("friend_userid", friendid);
+      .eq("id", friendid);
 
     if (error) {
       return res.status(400).json({ message: error.message });
