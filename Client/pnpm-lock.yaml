@@ -79,7 +79,7 @@ importers:
         specifier: ^0.10.8
         version: 0.10.8(rollup@4.24.0)(vue-router@4.4.5(vue@3.5.12(typescript@5.5.4)))(vue@3.5.12(typescript@5.5.4))
       vite:
-        specifier: ^5.4.8
+        specifier: ^5.4.9
         version: 5.4.9(@types/node@20.16.13)
       vite-plugin-vue-devtools:
         specifier: ^7.4.6
