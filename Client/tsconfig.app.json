@@ -1,9 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "typed-router.d.ts"],
+  "include": ["env.d.ts", "src/**/*.vue", "./typed-router.d.ts"],
   "exclude": ["src/**/__tests__/*", "node_modules", "dist", "public"],
   "compilerOptions": {
     "composite": true,
+    "moduleResolution": "Bundler",
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
     "baseUrl": ".",

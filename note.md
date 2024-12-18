@@ -1,10 +1,15 @@
-Controllers needed for:
-Users
-That specific user's activity
-The user's friends
-The users on the platform
-The amount of admin users
+Bugs:
 
-.env for the server loads the environment variables for the server. The .env for client gets compiled into the javascript.
+- Able to add the same friend multiple times.
+- Able to add yourself as a friend.
 
-Create a function that loads javascripts for you for the Google login. Look at his myFetch.ts and users.ts in the Client\src\models folder.
+Other issues:
+
+- Supabase is not letting me make new users because it wants me to use a custom SMTP provider. Message: Email sending privileges restricted due to bounce backs. Your project has been restricted due to high bounce rates. Please use a custom SMTP provider instead.
+- When adding a new workout you need to refresh the page for the new information to show up.
+- I need to handle the case where the admin user is deleted.
+
+Admin User:
+
+- Email: Nick@mail.com
+- Password: jKL;1234
