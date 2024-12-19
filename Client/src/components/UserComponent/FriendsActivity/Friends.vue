@@ -5,6 +5,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const userId = (route.params as { id: string }).id // Extract userId from the URL
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 interface Friend {
   id: number
   firstname: string
@@ -16,15 +18,12 @@ const friends = ref<Friend[]>([])
 
 const fetchFriends = async () => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/v1/friends/${userId}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`${apiUrl}/api/v1/friends/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+    })
 
     const result = await response.json()
 
@@ -41,7 +40,7 @@ const fetchFriends = async () => {
 const deleteFriend = async (friendId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/friends/${userId}/${friendId}`,
+      `${apiUrl}/api/v1/friends/${userId}/${friendId}`,
       {
         method: 'DELETE',
         headers: {

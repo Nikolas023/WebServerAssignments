@@ -10,6 +10,8 @@ const password2 = ref('')
 const username = ref('')
 const router = useRouter()
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 const signUp = async () => {
   if (password.value !== password2.value) {
     alert('Passwords do not match')
@@ -17,7 +19,7 @@ const signUp = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/v1/users/signup', {
+    const response = await fetch(`${apiUrl}/api/v1/users/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

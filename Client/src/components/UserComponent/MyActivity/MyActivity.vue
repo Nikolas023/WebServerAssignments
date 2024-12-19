@@ -9,6 +9,8 @@ const userId = (route.params as { id: string }).id // Extract userId from the UR
 const isAddWorkoutActive = ref(false)
 const workouts = ref<Workout[]>([])
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 interface Workout {
   id: number
   date: string
@@ -19,15 +21,12 @@ interface Workout {
 
 const fetchWorkouts = async () => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/v1/workouts/${userId}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`${apiUrl}/api/v1/workouts/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+    })
 
     const result = await response.json()
 
@@ -58,7 +57,7 @@ const addWorkout = (workout: Workout) => {
 const deleteWorkout = async (workoutId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/workouts/${userId}/${workoutId}`,
+      `${apiUrl}/api/v1/workouts/${userId}/${workoutId}`,
       {
         method: 'DELETE',
         headers: {

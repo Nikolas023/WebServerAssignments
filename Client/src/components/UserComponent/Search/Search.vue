@@ -6,6 +6,8 @@ const route = useRoute()
 const userId = (route.params as { id: string }).id // Extract userId from the URL
 const username = ref('') // Username entered by the user.
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 interface User {
   id: string
   username: string
@@ -22,7 +24,7 @@ const searchUsers = async () => {
     }
 
     const response = await fetch(
-      `http://localhost:3000/api/v1/users/username/${username.value}`,
+      `${apiUrl}/api/v1/users/username/${username.value}`,
       {
         method: 'GET',
         headers: {
@@ -51,7 +53,7 @@ const searchUsers = async () => {
 const addFriend = async () => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/friends/${userId}/${username.value}`,
+      `${apiUrl}/api/v1/friends/${userId}/${username.value}`,
       {
         method: 'POST',
         headers: {
