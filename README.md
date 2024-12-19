@@ -22,3 +22,7 @@ Existing Users for Testing:
 
 - Email: black@mail.com
 - Password: jKL;1234
+
+Autocomplete Features:
+
+- One autocomplete feature will try to find users that are partially typed in the search bar.

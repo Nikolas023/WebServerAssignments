@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const userId = (route.params as { id: string }).id // Extract userId from the URL
-const username = ref('') // Username entered by the user.
+const username = ref('') // Username entered by the user
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -16,15 +16,15 @@ interface User {
 
 const searchResults = ref<User[]>([])
 
-const searchUsers = async () => {
+const searchUsers = async (query: string) => {
   try {
-    if (username.value.trim() === '') {
-      alert('Please enter a username to search.')
+    if (query.trim() === '') {
+      searchResults.value = []
       return
     }
 
     const response = await fetch(
-      `${apiUrl}/api/v1/users/username/${username.value}`,
+      `${apiUrl}/api/v1/users/search?username=${query}`,
       {
         method: 'GET',
         headers: {
@@ -36,24 +36,24 @@ const searchUsers = async () => {
     const result = await response.json()
 
     if (response.ok) {
-      if (result) {
-        searchResults.value = [result] // Wrap the result in an array
-      } else {
-        alert('User does not exist.')
-        searchResults.value = [] // Clear previous results
-      }
+      searchResults.value = result // Assign the result directly
     } else {
-      alert("Error: User doesn't exist")
+      searchResults.value = []
     }
   } catch (error) {
-    alert("Error: User doesn't exist" + error)
+    console.error('Error fetching users:', error)
+    searchResults.value = []
   }
 }
 
-const addFriend = async () => {
+watch(username, newVal => {
+  searchUsers(newVal)
+})
+
+const addFriend = async (user: User) => {
   try {
     const response = await fetch(
-      `${apiUrl}/api/v1/friends/${userId}/${username.value}`,
+      `${apiUrl}/api/v1/friends/${userId}/${user.username}`,
       {
         method: 'POST',
         headers: {
@@ -67,8 +67,6 @@ const addFriend = async () => {
     if (response.ok) {
       alert('Friend added successfully!')
     } else {
-      alert('UserId: ' + userId)
-      alert('username: ' + username.value)
       alert('Error: ' + result.message)
     }
   } catch (error) {
@@ -86,26 +84,19 @@ const addFriend = async () => {
           <div class="field">
             <label class="label">Type in a username</label>
             <div class="control">
-              <input
-                class="input"
-                type="text"
-                placeholder="Search"
+              <o-autocomplete
                 v-model="username"
+                :data="searchResults"
+                field="username"
+                placeholder="Search"
               />
-              <button
-                class="button is-primary"
-                id="searchBtn"
-                @click="searchUsers"
-              >
-                Search
-              </button>
             </div>
           </div>
           <div class="card" v-for="user in searchResults" :key="user.id">
             <div class="card-content">
               <p><strong>Username:</strong> {{ user.username }}</p>
               <p><strong>Email:</strong> {{ user.email }}</p>
-              <button @click="addFriend()" class="button is-primary">
+              <button @click="addFriend(user)" class="button is-primary">
                 Add Friend
               </button>
             </div>
@@ -123,9 +114,5 @@ const addFriend = async () => {
 
 .card {
   margin-top: 1.5rem;
-}
-
-#searchBtn {
-  margin-top: 1rem;
 }
 </style>

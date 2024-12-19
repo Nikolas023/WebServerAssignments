@@ -168,6 +168,34 @@ router.get("/login/:email/:password", async (req, res) => {
   }
 });
 
+// GET: Search users by partial username match
+router.get("/search", async (req, res) => {
+  const { username } = req.query;
+
+  if (!username) {
+    return res
+      .status(400)
+      .json({ message: "Username query parameter is required" });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .getConnection()
+      .from("users")
+      .select("id, username, email")
+      .ilike("username", `%${username}%`); // Case-insensitive match
+
+    if (error) {
+      console.error("Error fetching users:", error.message);
+      return res.status(500).json({ message: "Error fetching users" });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Data is null here too.
 // PATCH: Update user details
 // api/v1/users/:id

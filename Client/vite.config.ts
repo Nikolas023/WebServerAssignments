@@ -23,6 +23,9 @@ export default defineConfig({
   base: './',
   build: {
     outDir: '../Server/dist',
+    rollupOptions: {
+      external: ['@oruga-ui/oruga-next/dist/oruga.css'],
+    },
   },
   server: {
     proxy: {
