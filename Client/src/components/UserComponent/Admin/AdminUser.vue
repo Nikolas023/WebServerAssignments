@@ -8,14 +8,14 @@ interface User {
   email: string
 }
 
-const apiUrl = import.meta.env.VITE_API_URL
+//const apiUrl = import.meta.env.VITE_API_URL
 
 const users = ref<User[]>([])
 
 // Function to fetch all users from the backend
 async function fetchUsers() {
   try {
-    const response = await fetch(`${apiUrl}/api/v1/users`)
+    const response = await fetch(`http://localhost:3000/api/v1/users`)
     if (response.ok) {
       const data = await response.json()
       users.value = data
@@ -35,12 +35,15 @@ onMounted(fetchUsers)
 async function deleteUser(email: string) {
   console.log(`Attempting to delete user with email: ${email}`)
   try {
-    const response = await fetch(`${apiUrl}/api/v1/users/${email}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `http://localhost:3000/api/v1/users/${email}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
 
     if (response.ok) {
       const responseData = await response.json()

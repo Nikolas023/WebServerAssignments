@@ -169,8 +169,10 @@ router.get("/login/:email/:password", async (req, res) => {
 });
 
 // GET: Search users by partial username match
-router.get("/search", async (req, res) => {
-  const { username } = req.query;
+router.get("/autocomplete/search", async (req, res) => {
+  const { username } = req.query; // Extracting from query
+
+  console.log("Query parameter received:", username); // Debug log
 
   if (!username) {
     return res
@@ -183,15 +185,17 @@ router.get("/search", async (req, res) => {
       .getConnection()
       .from("users")
       .select("id, username, email")
-      .ilike("username", `%${username}%`); // Case-insensitive match
+      .ilike("username", `%${username}%`);
 
     if (error) {
-      console.error("Error fetching users:", error.message);
+      console.error("Database error:", error.message);
       return res.status(500).json({ message: "Error fetching users" });
     }
 
+    console.log("Users found:", data); // Debug log
     res.status(200).json(data);
   } catch (err) {
+    console.error("Unexpected error:", err.message);
     res.status(500).json({ message: err.message });
   }
 });

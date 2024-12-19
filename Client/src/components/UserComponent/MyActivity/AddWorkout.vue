@@ -11,22 +11,25 @@ const location = ref('')
 const type = ref('Run')
 const emit = defineEmits(['close', 'addWorkout'])
 
-const apiUrl = import.meta.env.VITE_API_URL
+//const apiUrl = import.meta.env.VITE_API_URL
 
 const handleSubmit = async () => {
   try {
-    const response = await fetch(`${apiUrl}/api/v1/workouts/${userId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `http://localhost:3000/api/v1/workouts/${userId}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: date.value,
+          duration: duration.value,
+          location: location.value,
+          type: type.value,
+        }),
       },
-      body: JSON.stringify({
-        date: date.value,
-        duration: duration.value,
-        location: location.value,
-        type: type.value,
-      }),
-    })
+    )
 
     const result = await response.json()
 

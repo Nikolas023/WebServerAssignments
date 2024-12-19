@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const userId = (route.params as { id: string }).id // Extract userId from the URL
-const username = ref('') // Username entered by the user
-
-const apiUrl = import.meta.env.VITE_API_URL
+const userId = (route.params as { id: string }).id
+const username = ref('')
+const searchResults = ref<User[]>([])
 
 interface User {
   id: string
@@ -14,46 +13,41 @@ interface User {
   email: string
 }
 
-const searchResults = ref<User[]>([])
-
 const searchUsers = async (query: string) => {
-  try {
-    if (query.trim() === '') {
-      searchResults.value = []
-      return
-    }
+  if (!query.trim()) {
+    searchResults.value = []
+    return
+  }
 
+  try {
     const response = await fetch(
-      `${apiUrl}/api/v1/users/search?username=${query}`,
+      `http://localhost:3000/api/v1/users/autocomplete/search?username=${encodeURIComponent(query)}`,
       {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       },
     )
 
-    const result = await response.json()
-
     if (response.ok) {
-      searchResults.value = result // Assign the result directly
+      const results = await response.json()
+      searchResults.value = results
     } else {
+      const error = await response.text()
+      console.error('Server error:', error)
+      alert('Error fetching users')
       searchResults.value = []
     }
   } catch (error) {
-    console.error('Error fetching users:', error)
+    console.error('Client error:', error)
+    alert('Error: ' + error)
     searchResults.value = []
   }
 }
 
-watch(username, newVal => {
-  searchUsers(newVal)
-})
-
-const addFriend = async (user: User) => {
+const addFriend = async (username: string) => {
   try {
     const response = await fetch(
-      `${apiUrl}/api/v1/friends/${userId}/${user.username}`,
+      `http://localhost:3000/api/v1/friends/${userId}/${username}`,
       {
         method: 'POST',
         headers: {
@@ -63,7 +57,6 @@ const addFriend = async (user: User) => {
     )
 
     const result = await response.json()
-
     if (response.ok) {
       alert('Friend added successfully!')
     } else {
@@ -87,8 +80,9 @@ const addFriend = async (user: User) => {
               <o-autocomplete
                 v-model="username"
                 :data="searchResults"
-                field="username"
-                placeholder="Search"
+                :field="'username'"
+                placeholder="Search for a username"
+                @input="searchUsers"
               />
             </div>
           </div>
@@ -96,7 +90,10 @@ const addFriend = async (user: User) => {
             <div class="card-content">
               <p><strong>Username:</strong> {{ user.username }}</p>
               <p><strong>Email:</strong> {{ user.email }}</p>
-              <button @click="addFriend(user)" class="button is-primary">
+              <button
+                @click="addFriend(user.username)"
+                class="button is-primary"
+              >
                 Add Friend
               </button>
             </div>

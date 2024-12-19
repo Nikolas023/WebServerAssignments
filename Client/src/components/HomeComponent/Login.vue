@@ -5,12 +5,12 @@ import { useRouter } from 'vue-router'
 const email = ref('')
 const password = ref('')
 const router = useRouter()
-const apiUrl = import.meta.env.VITE_API_URL
+//const apiUrl = import.meta.env.VITE_API_URL
 
 const login = async () => {
   try {
     const response = await fetch(
-      `${apiUrl}/api/v1/users/login/${email.value}/${password.value}`,
+      `http://localhost:3000/api/v1/users/login/${email.value}/${password.value}`,
       {
         method: 'GET',
         headers: {
