@@ -9,7 +9,7 @@
     "dev": "nodemon Server/index.js --watch server",
     "build": "pnpm run build-server && pnpm run build-client",
     "build-server": "tsc -p Server/tsconfig.json",
-    "build-client": "tsc -p Client/tsconfig.json"
+    "build-client": "pnpm --prefix Client run build && cpx \"Client/dist/**\" Server/dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.2",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "cpx": "^1.5.0",
     "nodemon": "^3.1.9",
     "supabase": "^2.0.0",
     "typescript": "^5.7.2"
